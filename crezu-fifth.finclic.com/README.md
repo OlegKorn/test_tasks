@@ -242,4 +242,16 @@
 
   AR: JS alert popup "1" with OK button appears
 
-  ## 
+
+  ## gunctional bug 11: (video 9)
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the comment section
+  3. Fill the name input (placeholder "Your name"), and the comment input (placeholder "Write your comment here..."), set "Rate us"
+  4. Click "Submit"
+
+  ER: The average rate must change
+
+  AR: The rate is always 4.9/5
+
+
+  
