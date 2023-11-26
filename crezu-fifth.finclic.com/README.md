@@ -169,4 +169,45 @@
         return c.apply(this, arguments)
   }
   ```
+
+  ## video 5
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the comment section
+  3. Fill the name input (placeholder "Your name"), and the comment input (placeholder "Write your comment here..."), set "Rate us"
+  4. Click "Submit"
+
+  ER: A comment must be posted
+
+  AR: The "name" input only receives digits
+
+
+  ## error 6: visual
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the comment section
+
+  ER: There are title and comment text inputs. They must have right placeholders for each, respectively
+
+  AR: The comment input has placeholder "Your name", and the name input has it "Write your comment here..."
+
+
+  ## error 7: content (video 6)
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the comment section
+  3. Click at the arrows of the input "Write your comment here...
+
+  ER: Comments input must not have controls for setting digits as its value
+
+  AR: The given input has contrils for setting digits as its value
+
+
   
+  ## error 8: functional (video 7)
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the comment section
+  3. Input a non-digital value in the input "Write your comment here...
+  4. Click "Submit"
+  5. Click the red cross icon appeared at the right corner of the input
+
+  ER: The red cross icon appeared at the right corner of the input must clear its value
+
+  AR: The red cross icon appeared at the right corner of the input does not clear its value
