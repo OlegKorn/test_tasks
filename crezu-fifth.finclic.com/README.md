@@ -45,5 +45,92 @@
   #### 2 ссылки с https://crezu-fifth.finclic.com/reg/#! (https://crezu-fifth.finclic.com/terms.pdf и https://crezu-fifth.finclic.com/privacy-policy.pdf) выдают ошибку 404:
    ![crezu-fifth.finclic.com/reg/#!](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/404%20terms%20pdf.JPG)
    ![crezu-fifth.finclic.com/reg/#!](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/404%20privacy%20policy%20pds.JPG)
-  
 
+
+  ## Функциональность: Проверьте работоспособность всех интерактивных элементов, таких как кнопки, формы, выпадающие списки и т. д. Обратите внимание на любые ошибки или неожиданное поведение.
+
+  ### BUGS:
+  
+  - video 1
+  1. Go to https://crezu-fifth.finclic.com/
+  2. Click "Allow" of popup "Allow notifications"
+  3. Click "Request your loan"
+  4. At the page https://crezu-fifth.finclic.com/reg/#! the popup appears again
+  ER: After step 2 cookies must be set and the popup must not appear again
+  AR: The popup appears again on step 4
+  
+  - video 2
+  1. Go to https://crezu-fifth.finclic.com/
+  2. Click "Allow" of popup "Allow notifications"
+  3. Click "Request your loan"
+  4. At the page https://crezu-fifth.finclic.com/reg/#! fill required inputs with valid data
+  5. Click "Request your loan"
+  ER: After step 5 a user must be navigated to the next page
+  AR: A popup appears: "Hold on We are looking for the best offer for you.
+  Please don't close this page. Reviewed lenders: 1 logo Loan Application Fill out the form and get money", then nothig happens due to errors:
+  ```
+  Запрос из постороннего источника заблокирован: Политика одного источника запрещает чтение удаленного ресурса на https://test.crezu.net/form/v2.
+  (Причина: не удалось выполнить запрос CORS). Код состояния: (null).
+
+  sendGroupToBackend error Error: Network Error
+    gm https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:787
+    onerror https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:788
+    r https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:22
+    pt https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:9
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:22
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:22
+    ty https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:13
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:788
+    _m https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:788
+    LC https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:788
+    request https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:788
+    t https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:788
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:787
+    sendDataToBackend https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:791
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:5
+    sendGroupByNameToBackend https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:791
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:5
+    processActiveGroup https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:791
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:5
+    activateNextGroup https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:791
+    crezu_reg_form https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:5
+    y https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:792
+    Nn https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    Ft https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    $g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    r https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:792
+    Nn https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    Ft https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    n https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    r https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:22
+    Yb https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:22
+    sy https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:13
+    Yv https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    Jv https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    t_ https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    x https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    m https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    j https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    run https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    update https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    A https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    T https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    N https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    E https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    I https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    E https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    x https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    m https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    j https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    run https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    update https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    A https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    T https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    N https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+    j https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
+  ```
