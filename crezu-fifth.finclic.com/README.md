@@ -211,3 +211,35 @@
   ER: The red cross icon appeared at the right corner of the input must clear its value
 
   AR: The red cross icon appeared at the right corner of the input does not clear its value
+
+
+  ## error 9: functional (video 8)
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the "What can you use a microloan for?" section
+  3. Click left slider arrow 5-6 times
+
+  ER: These arrows must get inactive since the content does not move more
+
+  AR: The slider arrows are still active even if the content does not move more
+
+
+  ## bug 10: security JS (video 9)
+   1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the comment section
+  3. Input a digital value in the input "Write your comment here...
+  4. Input:
+  ```"<object src=1 href=1 onerror="javascript:alert("Amicus libertae ego sum)"></object>"```
+  or
+  ```"<script charset="\x22>javascript:alert(1)</script>"```
+  or
+  ```<a href="\x11javascript:javascript:alert(1)" id="fuzzelement1">test</a>```
+  or
+  ```"'><img src=xxx:x \x00onerror=javascript:alert(1)>```
+  to the "Your name" input
+  6. Click "Submit"
+
+  ER: JS-scripts must not run via injections
+
+  AR: JS alert popup "1" with OK button appears
+
+  ## 
