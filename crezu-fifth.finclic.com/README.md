@@ -138,3 +138,18 @@
     g https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
     j https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
   ```
+
+  ## video 3
+  1. Go to https://crezu-fifth.finclic.com/
+  2. Click "Request your loan"
+  3. At the page https://crezu-fifth.finclic.com/reg/#! click browser back arrow
+
+  ER: The page navigates to https://crezu-fifth.finclic.com/
+
+  AR: The page stays on https://crezu-fifth.finclic.com/reg/#!, an error happens:
+  ```
+  Некоторые куки неправильно используют рекомендованный атрибут «SameSite» 
+  Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite fbevents.js:24:97002
+  Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite
+  ```
+  
