@@ -33,5 +33,13 @@
   ![crezu.pl](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/crezu.pl%20failed.JPG)
   
   #### crezu.kz - 7387, 3 провалено
-  #### crezu.vn - 321 crezu.lk - 822
+  ![crezu.kz](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/crezu.kz%207387%20tests%203f.JPG)
+  ![crezu.kz](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/crezu.kz%20failed.JPG)
+  
+  #### crezu.vn - 321
+  ![crezu.vn](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/crezu.vn%20321%20tests.JPG)
+  
+  #### crezu.lk - 822
+  ![crezu.lk](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/crezu.lk%20822%20%20tests.JPG)
+  
 
