@@ -264,3 +264,28 @@
   
   AR: According to the title of the link it must navigate to the page where the user is able to set another sum of loan
   
+
+
+
+
+  ## functional bug: phone number (video 12)
+  1. Go to https://crezu-fifth.finclic.com
+  2. Click any link to request your loan
+  3. At the https://crezu-fifth.finclic.com/reg/#! try to change the phone prefix
+
+  ER: A user can set his number even non-Philininian
+
+  AR: A prefix is nonchangable: +63 9
+
+
+
+
+
+
+  ## content bug: footer in Spanish
+  1.  Go to https://crezu-fifth.finclic.com
+  2. Scroll to footer
+
+  ER: Footer data must be in the same language with the rest content (Eng)
+
+  AR: footer company data is in Spanish
