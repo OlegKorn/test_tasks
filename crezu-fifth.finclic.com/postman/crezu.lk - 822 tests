@@ -1,0 +1,513 @@
+{
+	"id": "db79566c-ac3a-442b-9a9c-8583178e14f8",
+	"name": "Link checker https://crezu-fifth.finclic.com",
+	"timestamp": "2023-11-26T10:01:06.597Z",
+	"collection_id": "19492150-2b4adf24-800f-4e39-9b25-503d25f7d9bd",
+	"folder_id": 0,
+	"environment_id": "19492150-5aa9aa89-184f-427c-9c73-e7d1ac950cef",
+	"totalPass": 822,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-11-26T10:00:10.300Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "f42aac9b-5a94-4925-9343-2073b17ce4c2",
+			"name": "Initialize",
+			"url": "https://crezu.lk",
+			"time": 1740,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1740
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+			"name": "Check URL",
+			"url": "https://crezu.lk/en/how-much-emergency-savings-do-you-really-need/",
+			"time": 349,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is below 15000ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 749,
+					"fail": 0
+				},
+				"Response time is below 15000ms": {
+					"pass": 49,
+					"fail": 0
+				}
+			},
+			"times": [
+				360,
+				349,
+				349,
+				686,
+				685,
+				350,
+				114,
+				687,
+				354,
+				348,
+				809,
+				975,
+				1420,
+				595,
+				788,
+				289,
+				375,
+				1411,
+				1423,
+				219,
+				685,
+				348,
+				354,
+				348,
+				347,
+				352,
+				373,
+				510,
+				347,
+				148,
+				439,
+				219,
+				311,
+				181,
+				750,
+				793,
+				603,
+				112,
+				545,
+				1369,
+				348,
+				349,
+				348,
+				352,
+				353,
+				348,
+				358,
+				351,
+				349
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 15000ms": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 26616,
+	"collection": {
+		"requests": [
+			{
+				"id": "f42aac9b-5a94-4925-9343-2073b17ce4c2",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			}
+		]
+	}
+}
