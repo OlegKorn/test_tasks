@@ -50,17 +50,16 @@
 ## Функциональность: Проверьте работоспособность всех интерактивных элементов, таких как кнопки, формы, выпадающие списки и т. д. Обратите внимание на любые ошибки или неожиданное поведение.
 
   ### BUGS:
-  ### video 1
+  ### functional bug 1, video 1 (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/1.avi)
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Allow" of popup "Allow notifications"
   3. Click "Request your loan"
   4. At the page https://crezu-fifth.finclic.com/reg/#! the popup appears again
   
   ER: After step 2 cookies must be set and the popup must not appear again
-  
   AR: The popup appears again on step 4
   
-  ### video 2
+  ### functional bug 2, video 2 (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/2.avi)
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Allow" of popup "Allow notifications"
   3. Click "Request your loan"
@@ -68,7 +67,6 @@
   5. Click "Request your loan"
   
   ER: After step 5 a user must be navigated to the next page
-  
   AR: A popup appears: "Hold on We are looking for the best offer for you.
   Please don't close this page. Reviewed lenders: 1 logo Loan Application Fill out the form and get money", then nothig happens due to errors:
 
@@ -139,13 +137,12 @@
     j https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
   ```
 
-  ### video 3
+  ### functional bug 3, video 3 (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/3.avi)
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Request your loan"
   3. At the page https://crezu-fifth.finclic.com/reg/#! click browser back arrow
 
   ER: The page navigates to https://crezu-fifth.finclic.com/
-
   AR: The page stays on https://crezu-fifth.finclic.com/reg/#!, an error happens on clicking the back arrow:
   ```
   Некоторые куки неправильно используют рекомендованный атрибут «SameSite» 
@@ -153,13 +150,12 @@
   Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite
   ```
 
-  ### video 4
+  ### functional bug 4, video 4 (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/4.avi)
   1. Go to https://crezu-fifth.finclic.com/
   2. Scroll down to the "What can you use a microloan for?" section
   3. Click any of "Choose ->" carousel buttons
 
   ER: The user is navigated to the loan page
-
   AR: Nothing happens, maybe the error is in the button event code where "o" is passed instead of 0:
   ```
   https://crezu-fifth.finclic.com/_nuxt/1b22668.modern.js
@@ -170,38 +166,35 @@
   }
   ```
 
-  ### video 5
+  ### functional bug 5, video 5 (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/5.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Fill the name input (placeholder "Your name"), and the comment input (placeholder "Write your comment here..."), set "Rate us"
   4. Click "Submit"
 
   ER: A comment must be posted
-
   AR: The "name" input only receives digits
 
 
-  ### error 6: visual
+  ### error 6: visual 
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
 
   ER: There are title and comment text inputs. They must have right placeholders for each, respectively
-
   AR: The comment input has placeholder "Your name", and the name input has it "Write your comment here..."
 
 
-  ### error 7: content (video 6)
+  ### bug 7: content (video 6) (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/6.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Click at the arrows of the input "Write your comment here...
 
   ER: Comments input must not have controls for setting digits as its value
-
   AR: The given input has contrils for setting digits as its value
 
 
   
-  ### error 8: functional (video 7)
+  ### error 8: functional (video 7) (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/7.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Input a non-digital value in the input "Write your comment here...
@@ -209,22 +202,20 @@
   5. Click the red cross icon appeared at the right corner of the input
 
   ER: The red cross icon appeared at the right corner of the input must clear its value
-
   AR: The red cross icon appeared at the right corner of the input does not clear its value
 
 
-  ### error 9: functional (video 8)
+  ### error 9: functional (video 8) (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/8.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the "What can you use a microloan for?" section
   3. Click left slider arrow 5-6 times, then the right one till the content doesnot move
 
   ER: These arrows must get inactive since the content does not move more
-
   AR: The slider arrows are still active even if the content does not move more
 
 
 ## Защита: Попробуйте провести тесты на безопасность, такие как SQL-инъекции или попытки несанкционированного доступа.
-  ### bug 10: security JS (video 9)
+  ### bug 10: security JS (video 9) (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/9.avi)
    1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Input a digital value in the input "Write your comment here...
@@ -240,55 +231,44 @@
   6. Click "Submit"
 
   ER: JS-scripts must not run via injections
-
   AR: JS alert popup "1" with OK button appears
 
 
-  ### functional bug 11: (video 10)
+  ### functional bug 11: (video 10) (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/10.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Click left arrow of the comments so that the content does not move
 
   ER: These arrows must get inactive since the content does not move more
-
   AR: These arrows are active even if the content does not move more
 
 
 
-
-  ## content bug 12: (video 11)
+  ## content bug 12: (video 11) (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/11.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the "How much money do you need?" section
   3. Click "Enter another amount" link
 
   ER: The user is navigated to https://crezu-fifth.finclic.com/reg/#! and unable to set another sum of loan
-  
   AR: According to the title of the link it must navigate to the page where the user is able to set another sum of loan
   
 
 
-
-
-  ## functional bug: phone number (video 12)
+  ## functional bug: phone number (video 12)  (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/12.avi)
   1. Go to https://crezu-fifth.finclic.com
   2. Click any link to request your loan
   3. At the https://crezu-fifth.finclic.com/reg/#! try to change the phone prefix
 
   ER: A user can set his number even non-Philininian
-
   AR: A prefix is nonchangable: +63 9
 
 
 
-
-
-
-  ## content bug: footer in Spanish
+  ## content bug: footer in Spanish (https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/videos/footer%20in%20spanish.JPG)
   1.  Go to https://crezu-fifth.finclic.com
   2. Scroll to footer
 
   ER: Footer data must be in the same language with the rest content (Eng)
-
   AR: footer company data is in Spanish
 
 
