@@ -1,4 +1,4 @@
-- [x] \### _Работоспособность: Проверьте, выполняются ли запросы и получаемые ответы корректны. Определите любые ошибки, неожиданные статусы или отсутствующие данные._
+## _Работоспособность: Проверьте, выполняются ли запросы и получаемые ответы корректны. Определите любые ошибки, неожиданные статусы или отсутствующие данные._
 
 Выполнено рекурсивных (т.е. все ссылки сайта) тестов в Postman (статус запроса 200, время отзыва более 15 секунд), т.е. являются ли ссылки работающими:
 
@@ -47,10 +47,10 @@
    ![crezu-fifth.finclic.com/reg/#!](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/404%20privacy%20policy%20pds.JPG)
 
 
-  ## Функциональность: Проверьте работоспособность всех интерактивных элементов, таких как кнопки, формы, выпадающие списки и т. д. Обратите внимание на любые ошибки или неожиданное поведение.
+## Функциональность: Проверьте работоспособность всех интерактивных элементов, таких как кнопки, формы, выпадающие списки и т. д. Обратите внимание на любые ошибки или неожиданное поведение.
 
   ### BUGS:
-  ## video 1
+  ### video 1
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Allow" of popup "Allow notifications"
   3. Click "Request your loan"
@@ -60,7 +60,7 @@
   
   AR: The popup appears again on step 4
   
-  ## video 2
+  ### video 2
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Allow" of popup "Allow notifications"
   3. Click "Request your loan"
@@ -139,7 +139,7 @@
     j https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:1
   ```
 
-  ## video 3
+  ### video 3
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Request your loan"
   3. At the page https://crezu-fifth.finclic.com/reg/#! click browser back arrow
@@ -153,7 +153,7 @@
   Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite
   ```
 
-  ## video 4
+  ### video 4
   1. Go to https://crezu-fifth.finclic.com/
   2. Scroll down to the "What can you use a microloan for?" section
   3. Click any of "Choose ->" carousel buttons
@@ -170,7 +170,7 @@
   }
   ```
 
-  ## video 5
+  ### video 5
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Fill the name input (placeholder "Your name"), and the comment input (placeholder "Write your comment here..."), set "Rate us"
@@ -181,7 +181,7 @@
   AR: The "name" input only receives digits
 
 
-  ## error 6: visual
+  ### error 6: visual
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
 
@@ -190,7 +190,7 @@
   AR: The comment input has placeholder "Your name", and the name input has it "Write your comment here..."
 
 
-  ## error 7: content (video 6)
+  ### error 7: content (video 6)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Click at the arrows of the input "Write your comment here...
@@ -201,7 +201,7 @@
 
 
   
-  ## error 8: functional (video 7)
+  ### error 8: functional (video 7)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Input a non-digital value in the input "Write your comment here...
@@ -213,7 +213,7 @@
   AR: The red cross icon appeared at the right corner of the input does not clear its value
 
 
-  ## error 9: functional (video 8)
+  ### error 9: functional (video 8)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the "What can you use a microloan for?" section
   3. Click left slider arrow 5-6 times, then the right one till the content doesnot move
@@ -223,7 +223,8 @@
   AR: The slider arrows are still active even if the content does not move more
 
 
-  ## bug 10: security JS (video 9)
+## Защита: Попробуйте провести тесты на безопасность, такие как SQL-инъекции или попытки несанкционированного доступа.
+  ### bug 10: security JS (video 9)
    1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Input a digital value in the input "Write your comment here...
@@ -243,7 +244,7 @@
   AR: JS alert popup "1" with OK button appears
 
 
-  ## functional bug 11: (video 10)
+  ### functional bug 11: (video 10)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
   3. Click left arrow of the comments so that the content does not move
@@ -289,3 +290,7 @@
   ER: Footer data must be in the same language with the rest content (Eng)
 
   AR: footer company data is in Spanish
+
+
+## Производительность: найдите любые проблемы используя любой инструмент для определения фактической производительности сайта.
+https://pagespeed.web.dev/analysis/https-crezu-fifth-finclic-com/4b8ji1nukx?form_factor=desktop
