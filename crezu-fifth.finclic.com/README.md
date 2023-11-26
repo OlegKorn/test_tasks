@@ -50,27 +50,31 @@
   ## Функциональность: Проверьте работоспособность всех интерактивных элементов, таких как кнопки, формы, выпадающие списки и т. д. Обратите внимание на любые ошибки или неожиданное поведение.
 
   ### BUGS:
-  
-  - video 1
+  ## video 1
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Allow" of popup "Allow notifications"
   3. Click "Request your loan"
   4. At the page https://crezu-fifth.finclic.com/reg/#! the popup appears again
+  
   ER: After step 2 cookies must be set and the popup must not appear again
+  
   AR: The popup appears again on step 4
   
-  - video 2
+  ## video 2
   1. Go to https://crezu-fifth.finclic.com/
   2. Click "Allow" of popup "Allow notifications"
   3. Click "Request your loan"
   4. At the page https://crezu-fifth.finclic.com/reg/#! fill required inputs with valid data
   5. Click "Request your loan"
+  
   ER: After step 5 a user must be navigated to the next page
+  
   AR: A popup appears: "Hold on We are looking for the best offer for you.
   Please don't close this page. Reviewed lenders: 1 logo Loan Application Fill out the form and get money", then nothig happens due to errors:
+
   ```
-  Запрос из постороннего источника заблокирован: Политика одного источника запрещает чтение удаленного ресурса на https://test.crezu.net/form/v2.
-  (Причина: не удалось выполнить запрос CORS). Код состояния: (null).
+  Запрос из постороннего источника заблокирован: Политика одного источника запрещает чтение удаленного ресурса
+  на https://test.crezu.net/form/v2. (Причина: не удалось выполнить запрос CORS). Код состояния: (null).
 
   sendGroupToBackend error Error: Network Error
     gm https://cdn.staging.crezu.net/reg_form/dist/crezu_reg_form.iife.js:787
