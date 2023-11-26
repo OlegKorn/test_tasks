@@ -1,0 +1,441 @@
+{
+	"id": "aa65d9f8-fac1-42b4-a681-e542246ce1a1",
+	"name": "Link checker https://crezu-fifth.finclic.com",
+	"timestamp": "2023-11-26T09:19:02.191Z",
+	"collection_id": "19492150-2b4adf24-800f-4e39-9b25-503d25f7d9bd",
+	"folder_id": 0,
+	"environment_id": "19492150-5aa9aa89-184f-427c-9c73-e7d1ac950cef",
+	"totalPass": 495,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-11-26T09:18:24.013Z",
+	"totalFail": 7,
+	"results": [
+		{
+			"id": "f42aac9b-5a94-4925-9343-2073b17ce4c2",
+			"name": "Initialize",
+			"url": "https://crezu.pe",
+			"time": 1242,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1242
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+			"name": "Check URL",
+			"url": "https://support.cloudflare.com/hc/en-us/categories/200275218-Getting-Started",
+			"time": 260,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Response time is below 5000ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 433,
+					"fail": 7
+				},
+				"Response time is below 5000ms": {
+					"pass": 41,
+					"fail": 0
+				}
+			},
+			"times": [
+				360,
+				361,
+				350,
+				586,
+				569,
+				115,
+				374,
+				567,
+				351,
+				339,
+				966,
+				1535,
+				654,
+				290,
+				547,
+				1455,
+				1458,
+				1701,
+				923,
+				575,
+				597,
+				568,
+				568,
+				568,
+				567,
+				602,
+				123,
+				136,
+				192,
+				353,
+				343,
+				345,
+				345,
+				207,
+				128,
+				123,
+				123,
+				125,
+				531,
+				379,
+				260
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": true,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				},
+				{
+					"Status code is 200": false,
+					"Response time is below 5000ms": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 22501,
+	"collection": {
+		"requests": [
+			{
+				"id": "f42aac9b-5a94-4925-9343-2073b17ce4c2",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			},
+			{
+				"id": "043934be-022a-471e-883f-ac3aa7f422e9",
+				"method": "GET"
+			}
+		]
+	}
+}
