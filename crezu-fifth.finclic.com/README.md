@@ -146,7 +146,7 @@
 
   ER: The page navigates to https://crezu-fifth.finclic.com/
 
-  AR: The page stays on https://crezu-fifth.finclic.com/reg/#!, an error happens:
+  AR: The page stays on https://crezu-fifth.finclic.com/reg/#!, an error happens on clicking the back arrow:
   ```
   Некоторые куки неправильно используют рекомендованный атрибут «SameSite» 
   Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite fbevents.js:24:97002
