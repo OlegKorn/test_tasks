@@ -216,7 +216,7 @@
   ## error 9: functional (video 8)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the "What can you use a microloan for?" section
-  3. Click left slider arrow 5-6 times
+  3. Click left slider arrow 5-6 times, then the right one till the content doesnot move
 
   ER: These arrows must get inactive since the content does not move more
 
@@ -243,15 +243,14 @@
   AR: JS alert popup "1" with OK button appears
 
 
-  ## gunctional bug 11: (video 9)
+  ## functional bug 11: (video 10)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
-  3. Fill the name input (placeholder "Your name"), and the comment input (placeholder "Write your comment here..."), set "Rate us"
-  4. Click "Submit"
+  3. Click laft arrow of the comments so that the content does not move
 
-  ER: The average rate must change
+  ER: These arrows must get inactive since the content does not move more
 
-  AR: The rate is always 4.9/5
+  AR: These arrows are active even if the content does not move more
 
 
   
