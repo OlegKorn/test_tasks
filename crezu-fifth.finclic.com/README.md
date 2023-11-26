@@ -152,4 +152,21 @@
   Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite fbevents.js:24:97002
   Для куки «_fbp» не установлено корректное значение атрибута «SameSite». Вскоре куки без атрибута «SameSite» или с некорректным значением этого атрибута будут рассматриваться как «Lax». Это означает, что куки больше не будут отправляться в сторонних контекстах. Если ваше приложение зависит от доступности этих кук в подобных контекстах, добавьте к ним атрибут «SameSite=None». Чтобы узнать больше об атрибуте «SameSite», прочитайте https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie/SameSite
   ```
+
+  ## video 4
+  1. Go to https://crezu-fifth.finclic.com/
+  2. Scroll down to the "What can you use a microloan for?" section
+  3. Click any of "Choose ->" carousel buttons
+
+  ER: The user is navigated to the loan page
+
+  AR: Nothing happens, maybe the error is in the button event code where "o" is passed instead of 0:
+  ```
+  https://crezu-fifth.finclic.com/_nuxt/1b22668.modern.js
+
+  function(t) {
+    if (t.target === t.currentTarget || t.timeStamp >= o || t.timeStamp <= 0 || t.target.ownerDocument !== document)
+        return c.apply(this, arguments)
+  }
+  ```
   
