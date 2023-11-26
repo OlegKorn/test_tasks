@@ -41,5 +41,9 @@
   
   #### crezu.lk - 822
   ![crezu.lk](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/crezu.lk%20822%20%20tests.JPG)
+
+  #### 2 ссылки с https://crezu-fifth.finclic.com/reg/#! (https://crezu-fifth.finclic.com/terms.pdf и https://crezu-fifth.finclic.com/privacy-policy.pdf) выдают ошибку 404:
+   ![crezu-fifth.finclic.com/reg/#!](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/404%20terms%20pdf.JPG)
+   ![crezu-fifth.finclic.com/reg/#!](https://github.com/OlegKorn/test_tasks/blob/main/crezu-fifth.finclic.com/postman/404%20privacy%20policy%20pds.JPG)
   
 
