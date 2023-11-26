@@ -246,11 +246,21 @@
   ## functional bug 11: (video 10)
   1. Go to https://crezu-fifth.finclic.com
   2. Scroll down to the comment section
-  3. Click laft arrow of the comments so that the content does not move
+  3. Click left arrow of the comments so that the content does not move
 
   ER: These arrows must get inactive since the content does not move more
 
   AR: These arrows are active even if the content does not move more
 
 
+
+
+  ## content bug 12: (video 11)
+  1. Go to https://crezu-fifth.finclic.com
+  2. Scroll down to the "How much money do you need?" section
+  3. Click "Enter another amount" link
+
+  ER: The user is navigated to https://crezu-fifth.finclic.com/reg/#! and unable to set another sum of loan
+  
+  AR: According to the title of the link it must navigate to the page where the user is able to set another sum of loan
   
