@@ -27,6 +27,37 @@ request_headers = {
 
 ses = requests.Session() 
 
+
+def get_book_author(data):
+    if data["authors"][0]["middleName"] != "":
+        author = data["authors"][0]["firstName"] + " " + data["authors"][0]["middleName"] + " " +  data["authors"][0]["lastName"]
+    else:
+        author = data["authors"][0]["firstName"] + " " + data["authors"][0]["lastName"]
+    return author
+    
+
+def get_book_discount(data):
+    if data["fullCost"] and data["price"]:
+        discount = int(data["fullCost"]) - int(data["price"])
+    else: 
+        discount = 0
+    return discount
+
+
+def get_order_cost(data):
+    order_cost = data.json()["cost"]
+    order_cost_with_sale = data.json()["costWithSale"]
+    order_cost_with_bonuses = data.json()["costWithBonuses"]
+    order_discount = data.json()["discount"]
+
+    if order_cost_with_sale:
+        order_cost = int(order_cost_with_sale)
+    if not order_cost_with_sale:
+        order_cost = int(r.json()["cost"])
+    return order_cost
+
+
+
 class ChitayGorod:
     def search(self, phrase):
         url = BASE_URL + '/api/v2/search/product'
@@ -40,16 +71,14 @@ class ChitayGorod:
 
         self.r = ses.get(url, params=params, headers=request_headers)
 
-        return self.r
+        return self.r.json()
 
 
-    def get_first_three_books_of_search(self):
+    def create_dict_of_first_three_books_of_search(self):
         search_result = self.search('тестирование')
-        
-        # get the first three books price, title, urls
-        # book_ids = [self.r.json()['data']['relationships']['products']['data'][i]['id'] for i in range(3)] 
-        
-        print(search_result.json()["included"][0])
+
+        for i in range(3): 
+            print(search_result["included"][i])
 
 
     def add_to_cart(self):
@@ -73,39 +102,14 @@ class ChitayGorod:
     
     def create_dict_of_books_in_cart(self):
         url = BASE_URL + '/api/v1/cart'
-
         r = ses.get(url, headers=request_headers)
-
-        order_cost = r.json()["cost"]
-        order_cost_with_sale = r.json()["costWithSale"]
-        order_cost_with_bonuses = r.json()["costWithBonuses"]
-        order_discount = r.json()["discount"]
-
-        if order_cost_with_sale:
-            order_cost = int(order_cost_with_sale)
-        if not order_cost_with_sale:
-            order_cost = int(r.json()["cost"])
-
-        print(
-            order_cost, 
-            order_cost_with_sale,
-            order_cost_with_bonuses
-        )
-
         cart_books = {}
 
         # create a dict
         for book_json in r.json()["products"]:
-            # element_index = r.json()["products"].index(book_json)
-            if book_json["authors"][0]["middleName"] != "":
-                author = book_json["authors"][0]["firstName"] + " " + book_json["authors"][0]["middleName"] + " " +  book_json["authors"][0]["lastName"]
-            else:
-                author = book_json["authors"][0]["firstName"] + " " + book_json["authors"][0]["lastName"]
-
-            if book_json["fullCost"] and book_json["price"]:
-                discount = int(book_json["fullCost"]) - int(book_json["price"])
-            else: 
-                discount = 0
+            author = get_book_author(book_json)
+            discount = get_book_discount(book_json)
+            cost = get_order_cost(r)
 
             book_info = {
                 "title": book_json["title"],
@@ -118,27 +122,26 @@ class ChitayGorod:
                 "url": book_json["url"]
             }
             
+            print(book_info)
+            
             # add this book info to dict
-            cart_books[r.json()["products"].index(book_json)] = book_info
-
-        return cart_books 
+            # cart_books[r.json()["products"].index(book_json)] = book_info
+           
+        # return cart_books 
         
 
     def compare_books_data_and_books_data_in_cart(self):
         books_in_cart = self.create_dict_of_books_in_cart()
-        first_three_books = self.get_first_three_books_of_search()
+        first_three_books = self.create_dict_of_first_three_books_of_search()
 
         print(books_in_cart, "\n\n", first_three_books)
 
 
 
-    def check_books_by_id(self):
-        books_in_cart = self.create_dict_of_books_in_cart()
-        first_three_books = self.get_first_three_books_of_search()
-
-        print(books_in_cart, "\n\n", first_three_books)
 
 
+
+    
     def delete(self):
 
         url = BASE_URL + '/api/v1/cart'
@@ -155,4 +158,4 @@ class ChitayGorod:
 c = ChitayGorod()
 # c.delete()
 # c.add_to_cart()
-c.get_first_three_books_of_search()
+c.create_dict_of_books_in_cart()
