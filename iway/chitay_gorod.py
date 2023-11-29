@@ -26,14 +26,17 @@ request_headers = {
     'TE': 'trailers'
 }
 
-ses = requests.Session()
-
 
 def get_book_author(data):
-    if data["authors"][0]["middleName"] != "":
-        author = data["authors"][0]["firstName"] + " " + data["authors"][0]["middleName"] + " " +  data["authors"][0]["lastName"]
+    if data["authors"] == []:
+        author = "No author"
+        return author
+    
     else:
-        author = data["authors"][0]["firstName"] + " " + data["authors"][0]["lastName"]
+        if data["authors"][0]["middleName"] != "":
+            author = data["authors"][0]["firstName"] + " " + data["authors"][0]["middleName"] + " " +  data["authors"][0]["lastName"]
+        else:
+            author = data["authors"][0]["firstName"] + " " + data["authors"][0]["lastName"]
 
     return author
     
@@ -96,20 +99,20 @@ class ChitayGorod:
             'sortPreset': 'relevance'
         }
 
-        self.r = ses.get(url, params=params, headers=request_headers)
+        self.r = requests.get(url, params=params, headers=request_headers)
 
         return self.r.json()
 
 
     def add_to_cart(self):
-        # 3 books
+        # 1st 3 books
         search_result = self.search("тестирование")["included"][:3] 
         request_headers["Cookie"] = '__ddg1_=iSoz5RdJHhSIumMpnaVl; access-token=Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDEzMjIyMjMsImlhdCI6MTcwMTE1NDIyMywiaXNzIjoiL2FwaS92MS9hdXRoL2Fub255bW91cyIsInN1YiI6ImJmYWZjOWQwOGM3YWViOWUzZjM2ZmE2MjU0NTdkYWE0ZTEyYmMzZTE2MWI4NzI0ZTYwYTc2NzVlZTQwMzBlMjQiLCJ0eXBlIjoxMH0.Qe837oM1P6txaOQ1GyykICNg530wc7tdZoZFkgsF8KI; chg_visitor_id=1ed8aac4-6498-4703-8465-df3b788075c9; refresh-token=;'
         
         url = BASE_URL + '/api/v1/cart/product'
 
         for book in search_result:
-            r = ses.post(
+            r = requests.post(
                 url, 
                 json={
                     "id":int(book["attributes"]["code"]),
@@ -126,53 +129,66 @@ class ChitayGorod:
         
     def show_cart(self) -> dict:
         url = BASE_URL + "/api/v1/cart"
-        r = ses.get(url, headers=request_headers)
+        r = requests.get(url, headers=request_headers)
         books_in_cart = create_a_dict_from_json(r)
 
         return books_in_cart
 
 
-    def compare_books_data_and_books_data_in_cart(self):
-        '''
-        Проверить , что в корзине находятся все выбранные книги, 
-        в нужном количество, 
-        за выбранную цену.
-
-        Проверить что итоговая цена заказа равна сумме стоимостей всех выбранных книг.
-        '''
-        search_result = self.search("тестирование")["included"][:3]
-        books_in_cart = self.show_cart()
-
-        # treat search_result & books_in_cart as str
-        # for re
-        # compare by book_id, price
-        search_result_book_ids = re.findall(r"'code': '(.*?)',", str(search_result)) # -> []
-        search_result_book_prices = re.findall(r"'price': (.*?),", str(search_result)) # -> []
+    def get_order_price(self) -> int:
+        url = BASE_URL + "/api/v1/cart"
+        r = requests.get(url, headers=request_headers)
         
+        order_total_cost = r.json()["costWithSale"]
+
+        return order_total_cost
+
+
+    def compare_books_data_and_books_data_in_cart(self):
+        books_in_cart = self.show_cart()
+        quantities = []
+
+        # price * quantity
+        for k, v in books_in_cart.items():
+            price_and_quantity = str(v["price"]) + ":" + str(v["quantity"])
+            quantities.append(price_and_quantity)
+
+            v["price"] = int(v["price"]) * int(v["quantity"])
+
         books_in_cart_book_ids = re.findall(r"'book_id': (.*?),", str(books_in_cart)) # -> []
         books_in_cart_book_prices = re.findall(r"'price': (.*?),", str(books_in_cart)) # -> []
 
+        total_order_price_calculated_from_cart = sum(map(int, books_in_cart_book_prices)) 
+        total_order_price_gotten_from_cart = self.get_order_price()
         
         print(
-            sorted(search_result_book_ids), 
-            sorted(books_in_cart_book_ids),
-            sorted(search_result_book_prices),
-            sorted(books_in_cart_book_prices),
-            sorted(search_result_book_ids) == sorted(books_in_cart_book_ids),
-            sorted(search_result_book_prices) == sorted(books_in_cart_book_prices)
+            f"ids of cart books: {sorted(books_in_cart_book_ids)}\n",
+            f"prices of cart books: {sorted(books_in_cart_book_prices)}\n", 
+            f"quantities of cart books: {quantities}\n",
+            f"prices calculated from cart: {total_order_price_calculated_from_cart}\n",
+            f"order total price gotten from cart: {total_order_price_gotten_from_cart}\n",
+            "Prices summated from cart are equal to prices gotten from cart: ", (total_order_price_calculated_from_cart == total_order_price_gotten_from_cart)
         )
 
 
-    def delete(self):
+    def delete_from_cart(self, delete_all=False):
         books_in_cart = self.show_cart()
         try:
             ids_for_deleting = re.findall(r"'id': (.*?),", str(books_in_cart)) # -> []
             print(ids_for_deleting)
-            random_id = random.choice(ids_for_deleting)
+            
+            if delete_all:
+                for i in ids_for_deleting:
+                    url = BASE_URL + f"/api/v1/cart/product/{str(i)}"
+                    r = requests.delete(url, headers=request_headers)
+                    print(i, r.status_code)
 
-            url = BASE_URL + f"/api/v1/cart/product/{random_id}"
-            r = ses.delete(url, headers=request_headers)
+            random_id = random.choice(ids_for_deleting)
+   
+            url = BASE_URL + f"/api/v1/cart/product/{str(random_id)}"
+            r = requests.delete(url, headers=request_headers)
             print(random_id, r.status_code)
+        
         except IndexError:
             print("Empty cart")
         
@@ -180,12 +196,12 @@ class ChitayGorod:
 
 
 c = ChitayGorod()
-c.delete()
+#c.delete_from_cart(delete_all=True)
 #c.add_to_cart()
-#c.show_cart()
-print(c.show_cart())
-
-#c.compare_books_data_and_books_data_in_cart()
+#print(c.show_cart())
+#print(c.show_cart())
+print(c.get_order_price())
+c.compare_books_data_and_books_data_in_cart()
 
 s = '''
 {0: {'title': 'Тестирование JavaScript', 'author': 'Лукас да Коста', 'book_id': 2954717, 'quantity': 1, 'cost': 2599, 'discount': 86, 'price': 2513, 'url': 'product/testirovanie-javascript-2954717'}, 1: {'title': 'Тестирование бизнес-идей', 'author': 'Александр Остервальдер', 'book_id': 2803288, 'quantity': 1, 'cost': 2099, 'discount': 311, 'price': 1788, 'url': 'product/testirovanie-biznes-idey-2803288'}, 2: {'title': 'Тестирование на проникновение с Kali Linux', 'author': 'Пранав Джоши', 'book_id': 2948959, 'quantity': 1, 'cost': 1099, 'discount': 316, 'price': 783, 'url': 'product/testirovanie-na-proniknovenie-s-kali-linux-2948959'}}
