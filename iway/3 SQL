@@ -26,5 +26,5 @@ GROUP BY "year";
 6. SELECT "id", "year"
 FROM cars
 WHERE "year" = (SELECT MAX("year") from cars)
-AND "deleted" = "true");
+AND "deleted" = "true";
 
