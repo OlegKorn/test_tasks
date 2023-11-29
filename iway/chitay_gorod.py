@@ -2,6 +2,7 @@
 import requests
 import json
 import re
+import random
 
 
 BASE_URL = 'https://web-gate.chitai-gorod.ru'
@@ -70,6 +71,7 @@ def create_a_dict_from_json(res, books={}):
             "title": book_json["title"],
             "author": author,
             "book_id": book_json["goodsId"],
+            "id": book_json["id"],
             "quantity": book_json["quantity"],
             "cost": int(book_json["fullCost"]),
             "discount": int(discount),
@@ -159,38 +161,31 @@ class ChitayGorod:
             sorted(search_result_book_ids) == sorted(books_in_cart_book_ids),
             sorted(search_result_book_prices) == sorted(books_in_cart_book_prices)
         )
-        
-
-        '''
-        for i in range(3):
-            title = search_result[i]["attributes"]["title"]
-            book_author = get_book_author(search_result[i]["attributes"])          
-            book_id = search_result[i]["attributes"]["code"]
-            price = search_result[i]["attributes"]["price"]
-            url = search_result[i]["attributes"]["category"]["url"]
-
-            book_ids.append(book_id)
-            prices.append(price)
-
-            print(f"Book_id:{book_id} in books_in_cart:{str(books_in_cart)}, price in prices")
-        '''
-
 
 
     def delete(self):
-        url = BASE_URL + '/api/v1/cart'
+        books_in_cart = self.show_cart()
+        try:
+            ids_for_deleting = re.findall(r"'id': (.*?),", str(books_in_cart)) # -> []
+            print(ids_for_deleting)
+            random_id = random.choice(ids_for_deleting)
 
-        r = ses.delete(url, headers=request_headers)
-        print(r.status_code)
-
+            url = BASE_URL + f"/api/v1/cart/product/{random_id}"
+            r = ses.delete(url, headers=request_headers)
+            print(random_id, r.status_code)
+        except IndexError:
+            print("Empty cart")
+        
 
 
 
 c = ChitayGorod()
-#c.delete()
-# print(c.show_cart())
+c.delete()
 #c.add_to_cart()
-c.compare_books_data_and_books_data_in_cart()
+#c.show_cart()
+print(c.show_cart())
+
+#c.compare_books_data_and_books_data_in_cart()
 
 s = '''
 {0: {'title': 'Тестирование JavaScript', 'author': 'Лукас да Коста', 'book_id': 2954717, 'quantity': 1, 'cost': 2599, 'discount': 86, 'price': 2513, 'url': 'product/testirovanie-javascript-2954717'}, 1: {'title': 'Тестирование бизнес-идей', 'author': 'Александр Остервальдер', 'book_id': 2803288, 'quantity': 1, 'cost': 2099, 'discount': 311, 'price': 1788, 'url': 'product/testirovanie-biznes-idey-2803288'}, 2: {'title': 'Тестирование на проникновение с Kali Linux', 'author': 'Пранав Джоши', 'book_id': 2948959, 'quantity': 1, 'cost': 1099, 'discount': 316, 'price': 783, 'url': 'product/testirovanie-na-proniknovenie-s-kali-linux-2948959'}}
