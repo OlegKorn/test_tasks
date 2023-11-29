@@ -25,7 +25,7 @@ request_headers = {
     'TE': 'trailers'
 }
 
-ses = requests.Session() 
+ses = requests.Session()
 
 
 def get_book_author(data):
@@ -33,6 +33,7 @@ def get_book_author(data):
         author = data["authors"][0]["firstName"] + " " + data["authors"][0]["middleName"] + " " +  data["authors"][0]["lastName"]
     else:
         author = data["authors"][0]["firstName"] + " " + data["authors"][0]["lastName"]
+
     return author
     
 
@@ -41,6 +42,7 @@ def get_book_discount(data):
         discount = int(data["fullCost"]) - int(data["price"])
     else: 
         discount = 0
+
     return discount
 
 
@@ -54,8 +56,31 @@ def get_order_cost(data):
         order_cost = int(order_cost_with_sale)
     if not order_cost_with_sale:
         order_cost = int(r.json()["cost"])
+
     return order_cost
 
+
+def create_a_dict_from_json(res, books={}):
+    for book_json in res.json()["products"]:
+        author = get_book_author(book_json)
+        discount = get_book_discount(book_json)
+        cost = get_order_cost(res)
+
+        book_info = {
+            "title": book_json["title"],
+            "author": author,
+            "book_id": book_json["goodsId"],
+            "quantity": book_json["quantity"],
+            "cost": int(book_json["fullCost"]),
+            "discount": int(discount),
+            "price": int(book_json["price"]),
+            "url": book_json["url"]
+        }
+            
+        # add this book info to dict
+        books[res.json()["products"].index(book_json)] = book_info
+
+    return books
 
 
 class ChitayGorod:
@@ -74,88 +99,76 @@ class ChitayGorod:
         return self.r.json()
 
 
-    def create_dict_of_first_three_books_of_search(self):
-        search_result = self.search('тестирование')
-
-        for i in range(3): 
-            print(search_result["included"][i])
-
-
     def add_to_cart(self):
-        books = self.get_first_three_books_of_search() 
-        request_headers['Cookie'] = '__ddg1_=iSoz5RdJHhSIumMpnaVl; access-token=Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDEzMjIyMjMsImlhdCI6MTcwMTE1NDIyMywiaXNzIjoiL2FwaS92MS9hdXRoL2Fub255bW91cyIsInN1YiI6ImJmYWZjOWQwOGM3YWViOWUzZjM2ZmE2MjU0NTdkYWE0ZTEyYmMzZTE2MWI4NzI0ZTYwYTc2NzVlZTQwMzBlMjQiLCJ0eXBlIjoxMH0.Qe837oM1P6txaOQ1GyykICNg530wc7tdZoZFkgsF8KI; chg_visitor_id=1ed8aac4-6498-4703-8465-df3b788075c9; refresh-token=;'
+        # 3 books
+        search_result = self.search("тестирование")["included"][:3] 
+        request_headers["Cookie"] = '__ddg1_=iSoz5RdJHhSIumMpnaVl; access-token=Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDEzMjIyMjMsImlhdCI6MTcwMTE1NDIyMywiaXNzIjoiL2FwaS92MS9hdXRoL2Fub255bW91cyIsInN1YiI6ImJmYWZjOWQwOGM3YWViOWUzZjM2ZmE2MjU0NTdkYWE0ZTEyYmMzZTE2MWI4NzI0ZTYwYTc2NzVlZTQwMzBlMjQiLCJ0eXBlIjoxMH0.Qe837oM1P6txaOQ1GyykICNg530wc7tdZoZFkgsF8KI; chg_visitor_id=1ed8aac4-6498-4703-8465-df3b788075c9; refresh-token=;'
         
         url = BASE_URL + '/api/v1/cart/product'
-        for book_id in books:
+
+        for book in search_result:
             r = ses.post(
                 url, 
                 json={
-                    "id":int(book_id),
+                    "id":int(book["attributes"]["code"]),
                     "adData":{
                         "item_list_name":"search",
                         "product_shelf":""
                     }
                 }, 
                 headers=request_headers
-            )    
+            )             
+            
+            print(int(book["attributes"]["code"]), r.status_code)
         
-    
-    def create_dict_of_books_in_cart(self):
-        url = BASE_URL + '/api/v1/cart'
+        
+    def show_cart(self) -> dict:
+        url = BASE_URL + "/api/v1/cart"
         r = ses.get(url, headers=request_headers)
-        cart_books = {}
+        books_in_cart = create_a_dict_from_json(r)
 
-        # create a dict
-        for book_json in r.json()["products"]:
-            author = get_book_author(book_json)
-            discount = get_book_discount(book_json)
-            cost = get_order_cost(r)
+        return books_in_cart
 
-            book_info = {
-                "title": book_json["title"],
-                "author": author,
-                "book_id": book_json["goodsId"],
-                "quantity": book_json["quantity"],
-                "cost": int(book_json["fullCost"]),
-                "discount": int(discount),
-                "price": int(book_json["price"]),
-                "url": book_json["url"]
-            }
-            
-            print(book_info)
-            
-            # add this book info to dict
-            # cart_books[r.json()["products"].index(book_json)] = book_info
-           
-        # return cart_books 
-        
 
     def compare_books_data_and_books_data_in_cart(self):
-        books_in_cart = self.create_dict_of_books_in_cart()
-        first_three_books = self.create_dict_of_first_three_books_of_search()
+        '''
+        Проверить , что в корзине находятся все выбранные книги, 
+        в нужном количество, 
+        за выбранную цену.
 
-        print(books_in_cart, "\n\n", first_three_books)
+        Проверить что итоговая цена заказа равна сумме стоимостей всех выбранных книг.
+        '''
+        search_result = self.search("тестирование")["included"][:3]
+        books_in_cart = self.show_cart()
 
+        # print(books_in_cart)
+        for i in range(3): 
+              
+            title = search_result[i]["attributes"]["title"]
+            book_author = get_book_author(search_result[i]["attributes"])           
+            book_id = search_result[i]["attributes"]["code"]
+            price = search_result[i]["attributes"]["price"] 
+            url = search_result[i]["attributes"]["category"]["url"]
+            print(title, book_author, book_id, price, url) 
+            print(books_in_cart[i])
+            print()
+            
+            #print(search_result[i])
+            print()
+            
+            
 
-
-
-
-
-    
     def delete(self):
-
         url = BASE_URL + '/api/v1/cart'
 
-        r = s.delete(url, headers=request_headers)
-        print(r.headers)
-        del s
- 
-
+        r = ses.delete(url, headers=request_headers)
+        print(r.status_code)
 
 
 
 
 c = ChitayGorod()
 # c.delete()
-# c.add_to_cart()
-c.create_dict_of_books_in_cart()
+# print(c.show_cart())
+#c.add_to_cart()
+c.compare_books_data_and_books_data_in_cart()
