@@ -1,0 +1,118 @@
+Суть задачи: Нужно реализовать методы для стандартных операций калькулятора: сложение, вычитание, умножение, деление.
+
+Список методов:
+POST /calc/addition
+POST /calc/subtraction
+POST /calc/multiplication
+POST /calc/division
+
+В метод передаются значения a и b, ответ приходит в формате json с одним полем “result” в случае
+успешного выполнения, либо “error” с описание ошибки в случае ошибки.
+Каждое действие закрыто под permission: canAdd, canSubtract, canMultiply, canDivide.
+Список доступных пользователю действий приходит в ответ на запрос GET /calc/permissions в
+массиве permissions: [].
+
+От вас требуется:
+1)список проверок, которые вы будете делать, чтобы убедиться в правильности реализации
+задачи
+2)назвать инструменты, которые вы бы использовали для осуществления этих проверок
+3)предположите, что вы нашли ошибку в какой-либо части этого функционала, опишите ее
+(составьте баг-репорт)
+============================================
+1. Как я понимаю, permissions проверяют, являются ли переданные значения числами. 
+
+"Together with authentication and throttling, permissions determine whether a request should be granted or denied access.
+Permission checks are always run at the very start of the view, before any other code is allowed to proceed. Permission checks will typically use the authentication information in the request.user and request.auth properties to determine if the incoming request should be permitted.
+Permissions are used to grant or deny access for different classes of users to different parts of the API.
+The simplest style of permission would be to allow access to any authenticated user, and deny access to any unauthenticated user. This corresponds to the IsAuthenticated class in REST framework."
+
+Значит нужна аутентификация. Например так:
+GET /permission - получить токен, потом его сунуть в заголовки запросов
+
+GET /calc/permissions -> if addition permission: -> permission token в headers,request body (a,b) -> POST /calc/addition -> response
+GET /calc/permissions -> if subtraction permission: -> permission token в headers,request body (a,b) -> POST /calc/subtraction -> response        
+GET /calc/permissions -> if multiplication permission: -> permission token в headers, request body (a,b) -> POST /calc/multiplication -> response
+GET /calc/permissions -> if division permission: -> permission token в headers,request body (a,b) -> POST /calc/division -> response       
+
+GET /calc/permissions -> if not permission: -> request body (a,b) -> POST /calc/addition -> error response
+GET /calc/permissions -> if not permission: -> request body (a,b) -> POST /calc/subtraction -> error response        
+GET /calc/permissions -> if not permission: ->  request body (a,b) -> POST /calc/multiplication -> error response
+GET /calc/permissions -> if not permission: -> request body (a,b) -> POST /calc/division -> error response
+----------------------------------
+import requests
+
+BASE_URL = "https://example.com"
+
+def get_permission():
+    url = BASE_URL + "/calc/permissions"
+
+    headers = {
+        "Host": "example.com",
+        "Content-Type": "application/json"
+    }
+
+    res = requests.get(url, headers=headers)
+    return res.json() -> perrmissions[]
+
+
+def add(permissions=get_permission(), x, y):
+    if "canAdd" in permissions:
+        url = BASE_URL + "/calc/permissions"
+
+        headers = {
+            "Host": "example.com",
+            "Content-Type": "application/json",
+            "Token": "canAdd"
+        }
+
+        r = requests.post(
+            url, 
+            json={
+                "param_one": x,
+                "param_two": y
+            },
+            headers=headers
+        )
+
+        return r.json()
+
+    и т.д             
+
+==================================================================
+
+2. Postman, Python
+====================================================
+
+BUG REPORT
+
+SUMMARY: response of POST /calc/addition gives out an error "Permission denied" with a valid GET /calc/permissions token
+--------------------------------
+PROJECT: test project
+--------------------------------
+COMPONENT: API
+--------------------------------
+VERSION: API version
+--------------------------------
+SEVERITY: major
+--------------------------------
+PRIORITY: high
+--------------------------------
+STATUS: unresolved
+--------------------------------
+AUTHOR: Oleg K.
+--------------------------------
+ASSIGNED TO: x
+--------------------------------
+ENVIRONMENT: Win NT 64x 
+Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0
+--------------------------------
+STEPS TO REPRODUCE:
+1. Request GET /calc/permissions 
+2. Get responsed auth addition token in the headers 
+3. Send POST /calc/addition with body {3, 4}
+--------------------------------
+ACTUAL RESULT: a response with JSON: "Method denied"
+--------------------------------
+EXPECTED RESULT: a user is responsed with JSON "addition: 3 + 4 = 7"
+--------------------------------
+ATTACHMENTS: logs, video
