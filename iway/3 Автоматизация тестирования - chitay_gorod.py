@@ -196,17 +196,11 @@ class ChitayGorod:
 
 
 c = ChitayGorod()
-#c.delete_from_cart(delete_all=True)
+#c.delete_from_cart()
 #c.add_to_cart()
 #print(c.show_cart())
 #print(c.show_cart())
-print(c.get_order_price())
-c.compare_books_data_and_books_data_in_cart()
+#print(c.get_order_price())
 
-s = '''
-{0: {'title': 'Тестирование JavaScript', 'author': 'Лукас да Коста', 'book_id': 2954717, 'quantity': 1, 'cost': 2599, 'discount': 86, 'price': 2513, 'url': 'product/testirovanie-javascript-2954717'}, 1: {'title': 'Тестирование бизнес-идей', 'author': 'Александр Остервальдер', 'book_id': 2803288, 'quantity': 1, 'cost': 2099, 'discount': 311, 'price': 1788, 'url': 'product/testirovanie-biznes-idey-2803288'}, 2: {'title': 'Тестирование на проникновение с Kali Linux', 'author': 'Пранав Джоши', 'book_id': 2948959, 'quantity': 1, 'cost': 1099, 'discount': 316, 'price': 783, 'url': 'product/testirovanie-na-proniknovenie-s-kali-linux-2948959'}}
-[Finished in 1.5s]
-'''
 
-books_in_cart_book_ids = re.findall(r"'book_id': (.*?),", str(s)) # -> []
-#print(books_in_cart_book_ids)
+c.compare_books_data_and_books_data_in_cart()      # запускать отдельно от всех
