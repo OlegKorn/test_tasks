@@ -187,7 +187,7 @@ class ChitayGorod:
 
 
 c = ChitayGorod()
-# c.delete()
+#c.delete()
 # print(c.show_cart())
 #c.add_to_cart()
 c.compare_books_data_and_books_data_in_cart()
@@ -199,4 +199,3 @@ s = '''
 
 books_in_cart_book_ids = re.findall(r"'book_id': (.*?),", str(s)) # -> []
 #print(books_in_cart_book_ids)
-
