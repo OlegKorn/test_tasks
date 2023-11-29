@@ -141,22 +141,41 @@ class ChitayGorod:
         search_result = self.search("тестирование")["included"][:3]
         books_in_cart = self.show_cart()
 
-        # print(books_in_cart)
-        for i in range(3): 
-              
+        # treat search_result & books_in_cart as str
+        # for re
+        # compare by book_id, price
+        search_result_book_ids = re.findall(r"'code': '(.*?)',", str(search_result)) # -> []
+        search_result_book_prices = re.findall(r"'price': (.*?),", str(search_result)) # -> []
+        
+        books_in_cart_book_ids = re.findall(r"'book_id': (.*?),", str(books_in_cart)) # -> []
+        books_in_cart_book_prices = re.findall(r"'price': (.*?),", str(books_in_cart)) # -> []
+
+        
+        print(
+            sorted(search_result_book_ids), 
+            sorted(books_in_cart_book_ids),
+            sorted(search_result_book_prices),
+            sorted(books_in_cart_book_prices),
+            sorted(search_result_book_ids) == sorted(books_in_cart_book_ids),
+            sorted(search_result_book_prices) == sorted(books_in_cart_book_prices)
+        )
+        
+
+        '''
+        for i in range(3):
             title = search_result[i]["attributes"]["title"]
-            book_author = get_book_author(search_result[i]["attributes"])           
+            book_author = get_book_author(search_result[i]["attributes"])          
             book_id = search_result[i]["attributes"]["code"]
-            price = search_result[i]["attributes"]["price"] 
+            price = search_result[i]["attributes"]["price"]
             url = search_result[i]["attributes"]["category"]["url"]
-            print(title, book_author, book_id, price, url) 
-            print(books_in_cart[i])
-            print()
-            
-            #print(search_result[i])
-            print()
-            
-            
+
+            book_ids.append(book_id)
+            prices.append(price)
+
+            print(f"Book_id:{book_id} in books_in_cart:{str(books_in_cart)}, price in prices")
+        '''
+
+
 
     def delete(self):
         url = BASE_URL + '/api/v1/cart'
@@ -172,3 +191,12 @@ c = ChitayGorod()
 # print(c.show_cart())
 #c.add_to_cart()
 c.compare_books_data_and_books_data_in_cart()
+
+s = '''
+{0: {'title': 'Тестирование JavaScript', 'author': 'Лукас да Коста', 'book_id': 2954717, 'quantity': 1, 'cost': 2599, 'discount': 86, 'price': 2513, 'url': 'product/testirovanie-javascript-2954717'}, 1: {'title': 'Тестирование бизнес-идей', 'author': 'Александр Остервальдер', 'book_id': 2803288, 'quantity': 1, 'cost': 2099, 'discount': 311, 'price': 1788, 'url': 'product/testirovanie-biznes-idey-2803288'}, 2: {'title': 'Тестирование на проникновение с Kali Linux', 'author': 'Пранав Джоши', 'book_id': 2948959, 'quantity': 1, 'cost': 1099, 'discount': 316, 'price': 783, 'url': 'product/testirovanie-na-proniknovenie-s-kali-linux-2948959'}}
+[Finished in 1.5s]
+'''
+
+books_in_cart_book_ids = re.findall(r"'book_id': (.*?),", str(s)) # -> []
+#print(books_in_cart_book_ids)
+
