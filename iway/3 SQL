@@ -1,0 +1,30 @@
+SQL
+По выданной БД (cars.txt) написать запросы, с помощью которых можно получить:
+1)Авто черного цвета;
+2)Авто с годами выпуска от 2013 до 2018 включительно;
+3)Авто, номер которых начинается с «X» (английской или русской);
+4)Авто, упорядоченные по убыванию года выпуска;
+5)Сколько авто приходится на каждый год выпуска;
+6)id и год самого нового удаленного автомобиля
+
+1. SELECT * FROM cars 
+WHERE "color" = "черный";
+
+2. SELECT * FROM cars
+WHERE "year" BETWEEN 2013 AND 2018;
+
+3. SELECT * FROM cars
+WHERE "number" LIKE "X%" 
+OR "number" LIKE "Х%";
+
+4. SELECT * FROM cars
+ORDER BY "year" DESC;
+
+5. SELECT *, COUNT("year") FROM cars
+GROUP BY "year";
+
+6. SELECT "id", "year"
+FROM cars
+WHERE "year" = (SELECT MAX("year") from cars)
+AND "deleted" = "true");
+
