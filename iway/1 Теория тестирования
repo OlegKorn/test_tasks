@@ -1,0 +1,17 @@
+1)Кратко опишите жизненный цикл бага?
+2)Перечислите уровни критичности бага. На каждый уровень критичности придумайте по
+одному багу, на примере тестирования входной двери
+
+
+1. new - assigned - open - fixed - pending retest - retest - verified - closed
+    |                 |
+reopened          duplicate
+                  rejected
+                  deffered
+                  not a bug
+              
+                  
+2. low - ручка имеет не тот цвет
+minor - ручка плохо крутится
+major - ручка отпадает
+critical - ручки нету
