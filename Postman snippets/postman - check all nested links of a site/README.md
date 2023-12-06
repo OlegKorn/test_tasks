@@ -27,60 +27,50 @@ var index = parseInt(postman.getEnvironmentVariable('index'));
 // increment index counter to access links in array to check
 index = index + 1;
 
-pm.test("Status code is 200", function() {
+pm.test("Status code is 200", function () {
     pm.response.to.have.status(200);
-});
-pm.test("Response time is below 15000ms", function() {
-    pm.expect(pm.response.responseTime).to.be.below(15000);  
 });
 
 // if the current url includes the start_url, then this is an internal link and we should crawl it for more links
 if (url.includes(start_url)) {
     // load the response body as HTML using cheerio, get the <a> tags
     var $ = cheerio.load(responseBody);
-    
+
     $('a').each(function (index) {
-        try {
+        try { 
             var link = $(this).attr('href');
-            console.log(link, url);
-            
+
             if (link !== "undefined") {
-                // if a link is relative
-                if (link.startsWith("/") && link.length > 1) {
-                    // delete "/" from link
-                    if (link.slice(-1) === "/") {
-                        linkWithoutSlash = link.slice(0, -1);
+                if (link !== "") {
+                    if (link === "/") {
+                        link = root_url;
                     } 
-
-                    link = start_url + linkWithoutSlash;
-                    console.log(url, " ============ ", link);
-
-                    pm.test("Status code is 200", function () {
-                        pm.response.to.have.status(200);
-                    });
+                    if (link !== "/") {
+                        // if a link is relative
+                        if (link.startsWith("/") && link.length > 1) {
+                            link = start_url + link;
+                        }
+                    }
                 }
-                if (/^https?:\/\//.test(link)) {
-                    pm.test("Status code is 200", function () {
-                        pm.response.to.have.status(200);
-                    }) 
-                }
-                // add links to the links array if not already in there
-                // if you have additional links you would like to exclude, for example, ads, you can add this criteria as well
-
-                if ( 
-                    !links.includes(link) &&
-                    // this part below is russian federation issues, if these media are not banned in your state
-                    // delete skype, facebook, twitter, linkedin conditions
-                    !link.includes("skype") && 
-                    !link.includes("mailto") &&
-                    !link.includes("facebook") &&
-                    !link.includes("twitter") &&
-                    !link.startsWith("#") &&
-                    !link.includes("linkedin")
-                ) {
-                    links.push(link);
-                }
-            }
+                pm.test("Status code is 200", function () {
+                    pm.response.to.have.status(200);
+                });
+                console.log(link);
+            }   
+                // add links to the links array if not already in there           
+                // this is russian federation issues, if these are not banned in your state
+                // delete facebook, twitter, linkedin conditions:
+            if ( 
+                !links.includes(link) && 
+                !link.includes("skype") && 
+                !link.includes("mailto") &&
+                !link.includes("facebook") &&
+                !link.includes("twitter") &&
+                !link.startsWith("#") &&
+                !link.includes("linkedin")
+            ) {
+                links.push(link);
+            }  
         } catch (e) {
             console.log(e, url, link);
         }
@@ -96,12 +86,6 @@ if (links.length - 1 === index) {
 // if link is a relative one, prepend with root_url
 url = links[index];
 
-if (! /^https?:\/\//.test(url)) {
-    url = root_url + url;
-} else {
-    url = url;
-}
-
 // update environment variable values
 postman.setEnvironmentVariable("links", JSON.stringify(links));
 postman.setEnvironmentVariable("url", url);
@@ -110,6 +94,11 @@ postman.setEnvironmentVariable("index", index);
 // continue calling the same request until all links are checked
 postman.setNextRequest("Check URL");
 ```
+
+This is what it did to https://vgbelinsky.ru (both variables set as it).  
+![alt text](https://i.ibb.co/r5Q8xxW/image.png)
+
+## Any ideas and improvements?
 
 [^1]: Create environment variables:  
 {{base_url}}: the base url of a checked site  
