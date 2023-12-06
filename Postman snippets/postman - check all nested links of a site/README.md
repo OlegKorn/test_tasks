@@ -95,7 +95,7 @@ postman.setEnvironmentVariable("index", index);
 postman.setNextRequest("Check URL");
 ```
 
-This is what it did to https://vgbelinsky.ru (both variables set as it).  
+This is what it did to https://vgbelinsky.ru (`{{base_url}} = https://vgbelinsky.ru`, `{{base_url}} = https://vgbelinsky.ru`).  
 ![alt text](https://i.ibb.co/r5Q8xxW/image.png)
 
 ## Any ideas and improvements?
