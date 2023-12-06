@@ -35,41 +35,54 @@ pm.test("Response time is below 15000ms", function() {
 });
 
 // if the current url includes the start_url, then this is an internal link and we should crawl it for more links
-// if (url.includes(start_url)) {
 if (url.includes(start_url)) {
     // load the response body as HTML using cheerio, get the <a> tags
     var $ = cheerio.load(responseBody);
     
     $('a').each(function (index) {
-        var link = $(this).attr('href');
+        try {
+            var link = $(this).attr('href');
+            console.log(link, url);
+            
+            if (link !== "undefined") {
+                // if a link is relative
+                if (link.startsWith("/") && link.length > 1) {
+                    // delete "/" from link
+                    if (link.slice(-1) === "/") {
+                        linkWithoutSlash = link.slice(0, -1);
+                    } 
 
-        // if a link is relative
-        if (link.startsWith("/")) {
-            link = start_url + $(this).attr('href').replace("http:/", "");
-            pm.test("Status code is 200", function () {
-                pm.response.to.have.status(200);
-            });
-        } else if (/^https?:\/\//.test(link)) {
-            pm.test("Status code is 200", function () {
-                pm.response.to.have.status(200);
-            });
-        }
+                    link = start_url + linkWithoutSlash;
+                    console.log(url, " ============ ", link);
 
-        // add links to the links array if not already in there
-        // if you have additional links you would like to exclude, for example, ads, you can add this criteria as well
+                    pm.test("Status code is 200", function () {
+                        pm.response.to.have.status(200);
+                    });
+                }
+                if (/^https?:\/\//.test(link)) {
+                    pm.test("Status code is 200", function () {
+                        pm.response.to.have.status(200);
+                    }) 
+                }
+                // add links to the links array if not already in there
+                // if you have additional links you would like to exclude, for example, ads, you can add this criteria as well
 
-        // this is russian federation issues, if these are not banned in your state
-        // delete this if:
-        if ( 
-            !links.includes(link) && 
-            !link.includes("skype") && 
-            !link.includes("mailto") &&
-            !link.includes("facebook") &&
-            !link.includes("twitter") &&
-            !link.startsWith("#") &&
-            !link.includes("linkedin")
-        ) {
-            links.push(link);
+                if ( 
+                    !links.includes(link) &&
+                    // this part below is russian federation issues, if these media are not banned in your state
+                    // delete skype, facebook, twitter, linkedin conditions
+                    !link.includes("skype") && 
+                    !link.includes("mailto") &&
+                    !link.includes("facebook") &&
+                    !link.includes("twitter") &&
+                    !link.startsWith("#") &&
+                    !link.includes("linkedin")
+                ) {
+                    links.push(link);
+                }
+            }
+        } catch (e) {
+            console.log(e, url, link);
         }
     });
 }
@@ -98,4 +111,7 @@ postman.setEnvironmentVariable("index", index);
 postman.setNextRequest("Check URL");
 ```
 
-[^1]: Create an environment variable {{start_url}} - an url of a site to check - before
+[^1]: Create environment variables:  
+{{base_url}}: the base url of a checked site  
+{{start_url}}: an url of a site to check
+
