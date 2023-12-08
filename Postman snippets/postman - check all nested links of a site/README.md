@@ -40,6 +40,10 @@ if (url.includes(start_url)) {
         try { 
             var link = $(this).attr('href');
 
+            // delete the ending "/" of href if any
+            if (link.slice(-1) === "/") { 
+                link = link.replace(/.$/, "");
+            }
             if (link !== "undefined") {
                 if (link !== "") {
                     if (link === "/") {
@@ -57,10 +61,12 @@ if (url.includes(start_url)) {
                 });
                 console.log(link);
             }   
-                // add links to the links array if not already in there           
-                // this is russian federation issues, if these are not banned in your state
-                // delete facebook, twitter, linkedin conditions:
-            if ( 
+            
+            // add links to the links array if not already in there           
+            // this is russian federation issues, if these are not banned in your state
+            // delete facebook, twitter, linkedin conditions:
+            if (
+                link !== root_url &&          // let's try to exclude the root_url
                 !links.includes(link) && 
                 !link.includes("skype") && 
                 !link.includes("mailto") &&
