@@ -28,11 +28,12 @@ var index = parseInt(postman.getEnvironmentVariable('index'));
 index = index + 1;
 
 pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
+   pm.response.to.have.status(200);
 });
 
 // if the current url includes the start_url, then this is an internal link and we should crawl it for more links
-if (url.includes(start_url)) {
+if (url.includes(start_url)) 
+{
     // load the response body as HTML using cheerio, get the <a> tags
     var $ = cheerio.load(responseBody);
 
@@ -40,41 +41,38 @@ if (url.includes(start_url)) {
         try { 
             var link = $(this).attr('href');
 
-            // delete the ending "/" of href if any
-            if (link.slice(-1) === "/") { 
-                link = link.replace(/.$/, "");
-            }
-            if (link !== "undefined") {
-                if (link !== "") {
-                    if (link === "/") {
-                        link = root_url;
-                    } 
-                    if (link !== "/") {
-                        // if a link is relative
-                        if (link.startsWith("/") && link.length > 1) {
-                            link = start_url + link;
-                        }
-                    }
+            if ((link !== "undefined") && 
+                (!link.includes("tel:")) && 
+                (link !== "") &&
+                (link !== "/")) 
+            {
+                // if a link is relative
+                if (link.startsWith("/") && link.length > 1) 
+                {
+                    link = root_url + link;
                 }
+
                 pm.test("Status code is 200", function () {
                     pm.response.to.have.status(200);
                 });
-                console.log(link);
-            }   
-            
+                // a workaround o show a requested URL
+                pm.test("Show request URL", function () {
+                    pm.expect(pm.variables.replaceIn(pm.request.url.toString())).to.eql();
+                });
+            }
             // add links to the links array if not already in there           
             // this is russian federation issues, if these are not banned in your state
-            // delete facebook, twitter, linkedin conditions:
-            if (
-                link !== root_url &&          // let's try to exclude the root_url
+            // delete facebook, twitter, linkedin conditions:if (
+            if (link !== root_url &&          // let's try to exclude the root_url
                 !links.includes(link) && 
                 !link.includes("skype") && 
+                !link.includes("tel:") &&
+                link !== "#" &&
                 !link.includes("mailto") &&
                 !link.includes("facebook") &&
                 !link.includes("twitter") &&
-                !link.startsWith("#") &&
-                !link.includes("linkedin")
-            ) {
+                !link.includes("linkedin")) 
+            {
                 links.push(link);
             }  
         } catch (e) {
@@ -84,12 +82,12 @@ if (url.includes(start_url)) {
 }
 
 // if we've gone through all the links, return early
-if (links.length - 1 === index) {
+if (links.length - 1 === index) 
+{
     console.log('no more links to check');
     return;
 }
 
-// if link is a relative one, prepend with root_url
 url = links[index];
 
 // update environment variable values
@@ -98,7 +96,7 @@ postman.setEnvironmentVariable("url", url);
 postman.setEnvironmentVariable("index", index);
 
 // continue calling the same request until all links are checked
-postman.setNextRequest("Check URL");
+// postman.setNextRequest("Check URL");
 ```
 
 This is what it did to https://vgbelinsky.ru (`{{base_url}} = https://vgbelinsky.ru`, `{{base_url}} = https://vgbelinsky.ru`).  
