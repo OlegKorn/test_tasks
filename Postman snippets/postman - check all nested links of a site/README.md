@@ -1,4 +1,4 @@
-I'm not sure if it really checks ALL nested links of a site, but looks legit because it checks thousands of nested urls like /about, /news etc  
+I'm not sure if it really checks ALL nested links of a site, but looks legit    
 To iterate thru all the urls of a site in Postman you must create two requests in a collection:  
 
 > [!TIP]
