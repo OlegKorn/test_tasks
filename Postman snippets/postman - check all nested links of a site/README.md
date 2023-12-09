@@ -1,3 +1,9 @@
+# HOW IT WORKS  
+```
+1. IT COLLECTS ALL INTERNAL LINKS FROM THE MAIN PAGE (OR A PAGE YOU SET)  
+2. THEN IT ITERATES THRU EVERY LINK FROM STEP 1 AND IN ITS TURN COLLECTS ALL INTERNAL LINKS FROM EVERY ITERATED LINK AND CREATES A LIST OF ALL LINKS CHECKING IF A LINK IS ALREADY IN THE LIST  
+```
+
 ## I'm not sure if it really checks ALL nested links of a site, but looks legit    
 To iterate thru all the urls of a site in Postman you must create four requests in a collection (there are 3 now, giving out a list of website links). The last one I was too lazy to write. You can do it yourself - just create the 4th request and pass there the list of links from the 3rd request, and for each do your tests.  
 
