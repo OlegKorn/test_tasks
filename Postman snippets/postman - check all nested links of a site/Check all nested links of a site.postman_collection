@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "2b4adf24-800f-4e39-9b25-503d25f7d9bd",
+		"name": "Check all(?) nested links of a site",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19492150"
+	},
+	"item": [
+		{
+			"name": "Initialize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setEnvironmentVariable('startPageLinks', '[]');",
+							"postman.setEnvironmentVariable('allLinks', '[]');",
+							"postman.setEnvironmentVariable('index', 0);",
+							"postman.setEnvironmentVariable('url', postman.getEnvironmentVariable('start_url'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{start_url}}",
+					"host": [
+						"{{start_url}}"
+					]
+				},
+				"description": "Under the **Tests** tab, we will set a few more environment variables that will be used in the subsequent request, using the `setEnvironmentVariable()` method.\n\n  [![setEnvironmentVariable](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkSetEnv.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkSetEnv.png)\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Collect URLs of start_page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// https://blog.postman.com/check-for-broken-links-on-your-website-using-a-postman-collection/",
+							"",
+							"// get environment variables",
+							"var start_url = postman.getEnvironmentVariable('start_url');",
+							"var root_url = postman.getEnvironmentVariable('root_url');",
+							"var startPageLinks = JSON.parse(postman.getEnvironmentVariable('startPageLinks')) // [];",
+							"",
+							"// load the response body as HTML using cheerio, get the <a> tags",
+							"var $ = cheerio.load(responseBody);",
+							"",
+							"$('a').each(function (index) {",
+							"    try { ",
+							"        var link = $(this).attr('href');",
+							"",
+							"        if (link !== \"undefined\" && ",
+							"            !link.includes(\"tel:\") && ",
+							"            link !== \"\" &&",
+							"            link !== \"/\")",
+							"        {",
+							"            // if a link is relative",
+							"            if (link.startsWith(\"/\") && link.length > 1) ",
+							"            {",
+							"                link = root_url + link;",
+							"            }",
+							"        }",
+							"        // add links to the links array if not already in there           ",
+							"        if (link !== root_url &&          // let's try to exclude the root_url",
+							"            !startPageLinks.includes(link) && ",
+							"            !link.includes(\"skype\") && ",
+							"            !link.startsWith(\"#\") &&",
+							"            !link.includes(\"tel:\") &&",
+							"            link !== \"#\" &&",
+							"            link !== \"/\" &&",
+							"            !link.includes(\"mailto\") &&",
+							"            !link.includes(\"facebook\") &&",
+							"            !link.includes(\"twitter\") &&",
+							"            !link.includes(\"linkedin\")) ",
+							"        {",
+							"            startPageLinks.push(link);",
+							"        }  ",
+							"    } catch (e) {",
+							"        console.log(e, link);",
+							"    }",
+							"});",
+							"",
+							"// update environment variable values",
+							"postman.setEnvironmentVariable(\"startPageLinks\", JSON.stringify(startPageLinks));",
+							"",
+							"// continue calling the same request until all links are checked",
+							"// postman.setNextRequest(\"Check URL\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{start_url}}",
+					"host": [
+						"{{start_url}}"
+					]
+				},
+				"description": "This request will crawl internal links and check all links for a healthy HTTP status code that is less than 400. \n\n**HTML scraping**\n\nFinding all the links on a page requires scraping HTML. The Postman Sandbox supports **cheerio** as a library for scraping HTML elements. Read more about [using the Postman Sandbox](https://www.getpostman.com/docs/postman/scripts/postman_sandbox) and other libraries and utilities supported in the pre-request and scripts sections.\n\n[![Cheerio HTML scraping](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/scrapeLinks.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/scrapeLinks.png)\n\n**Building workflows**\n\nThe `setNextRequest()` method accepts a request name or id within the same collection as a parameter. Use this method to establish a workflow sequence and designate which request in the same collection to run next, instead of defaulting to the linear execution. Read more about [building workflows](https://www.getpostman.com/docs/postman/collection_runs/building_workflows).\n\nIn this example, we will continue calling the same request until all links are checked.\n\n[![setNextRequest method](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkSetNextRequest.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkSetNextRequest.png)"
+			},
+			"response": []
+		},
+		{
+			"name": "Collect all nested URLs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let startPageLinksToList = JSON.parse(\r",
+							"    postman.getEnvironmentVariable(\"startPageLinks\").toString().split(\",\")\r",
+							");\r",
+							"\r",
+							"let index = postman.getEnvironmentVariable(\"index\");\r",
+							"\r",
+							"if (Number(index) === 1) {\r",
+							"    var allLinks = [...startPageLinksToList];\r",
+							"}\r",
+							"if (Number(index) > 1) {\r",
+							"    var allLinks = postman.getEnvironmentVariable(\"allLinks\").toString().split(\",\");\r",
+							"}\r",
+							"\r",
+							"let rootUrl = postman.getEnvironmentVariable(\"root_url\"); \r",
+							"\r",
+							"// load the response body as HTML using cheerio, get the <a> tags\r",
+							"var $ = cheerio.load(responseBody);\r",
+							"    \r",
+							"$('a').each(function (index) {\r",
+							"    try { \r",
+							"        var link = $(this).attr('href'); \r",
+							"\r",
+							"        // if a link is relative\r",
+							"        if (link.startsWith(\"/\") && link.length > 1) {\r",
+							"            link = rootUrl + link;\r",
+							"            if (!allLinks.includes(link)) {\r",
+							"                console.log(\"This link is added: \", link);\r",
+							"                allLinks.push(link);\r",
+							"            }\r",
+							"        } \r",
+							"        else if (link.includes(\"https://\") || link.includes(\"http://\")) {\r",
+							"            if (!allLinks.includes(link)) {\r",
+							"                console.log(\"This link is added: \", link);\r",
+							"                allLinks.push(link);\r",
+							"            } \r",
+							"        } else {\r",
+							"            return;\r",
+							"        }; \r",
+							"        postman.setEnvironmentVariable(\"allLinks\", allLinks);\r",
+							"    } catch (e) {\r",
+							"        console.log(e, link);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"if (Number(index) < 5) {\r",
+							"    postman.setNextRequest(\"Collect all nested URLs\");\r",
+							"    //console.log(allLinks);\r",
+							"} \r",
+							"\r",
+							"console.log(allLinks);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// listify the urls collected from GET \"Collect URLs of start_page\"\r",
+							"let startPageLinksToList = JSON.parse(\r",
+							"    postman.getEnvironmentVariable(\"startPageLinks\").toString().split(\",\")\r",
+							");\r",
+							"\r",
+							"let index = postman.getEnvironmentVariable(\"index\");\r",
+							"let url = postman.getEnvironmentVariable(\"url\");\r",
+							"let currentLink = startPageLinksToList[Number(index)];\r",
+							"\r",
+							"postman.setEnvironmentVariable(\"url\", currentLink);\r",
+							"index = Number(index) + 1;\r",
+							"console.log(\"================\");\r",
+							"console.log(index, currentLink);\r",
+							"console.log(\"================\");\r",
+							"\r",
+							"postman.setEnvironmentVariable(\"index\", index);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
