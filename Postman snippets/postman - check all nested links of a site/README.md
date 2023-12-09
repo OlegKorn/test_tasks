@@ -1,5 +1,7 @@
-I'm not sure if it really checks ALL nested links of a site, but looks legit    
-To iterate thru all the urls of a site in Postman you must create two requests in a collection:  
+## I'm not sure if it really checks ALL nested links of a site, but looks legit    
+To iterate thru all the urls of a site in Postman you must create four requests in a collection (there are 3 now, giving out a list of website links). The last one I was too lazy to write. You can do it yourself - just create the 4th request and pass there the list of links from the 3rd request, and for each do your tests.  
+
+### These 3 requests are:
 
 > [!TIP]
 > #### Initialize ```GET {{start_url}}```[^1]
@@ -12,7 +14,7 @@ postman.setEnvironmentVariable('url', postman.getEnvironmentVariable('start_url'
 ```
   
 > [!TIP]
-> #### Collect URLs of start_page ```GET {{url}}```
+> #### Collect URLs of start_page ```GET {{start_url}}```
 Put this code in the tab "Test" of this request:    
 ```
 // https://blog.postman.com/check-for-broken-links-on-your-website-using-a-postman-collection/
@@ -74,13 +76,15 @@ Put this code in the tab "Test" of this request:
 let startPageLinksToList = JSON.parse(
     postman.getEnvironmentVariable("startPageLinks").toString().split(",")
 );
+
 let index = postman.getEnvironmentVariable("index");
-if (Number(index) === 0) {
+
+if (Number(index) === 1) {
     var allLinks = [...startPageLinksToList];
-} else {
+}
+if (Number(index) > 1) {
     var allLinks = postman.getEnvironmentVariable("allLinks").toString().split(",");
 }
-//let currentLink = startPageLinksToList[Number(index)];
 
 let rootUrl = postman.getEnvironmentVariable("root_url"); 
 
@@ -95,30 +99,32 @@ $('a').each(function (index) {
         if (link.startsWith("/") && link.length > 1) {
             link = rootUrl + link;
             if (!allLinks.includes(link)) {
+                console.log("This link is added: ", link);
                 allLinks.push(link);
-                console.log("This link: ", link, " added");
             }
         } 
         else if (link.includes("https://") || link.includes("http://")) {
             if (!allLinks.includes(link)) {
+                console.log("This link is added: ", link);
                 allLinks.push(link);
-                console.log("This link: ", link, " added");
             } 
         } else {
-            console.log("This link: ", link, " is not a link");
+            return;
         }; 
+        postman.setEnvironmentVariable("allLinks", allLinks);
     } catch (e) {
         console.log(e, link);
     }
 });
 
-if (Number(index) < startPageLinksToList.length) {
-    console.log(allLinks);
+if (Number(index) < 5) {
     postman.setNextRequest("Collect all nested URLs");
+    //console.log(allLinks);
 } 
 
-postman.setEnvironmentVariable("allLinks", JSON.stringify(allLinks));
-```  
+console.log(allLinks);
+```
+
 Put this code in the tab "Pre-request script" of this request:  
 ```
 // listify the urls collected from GET "Collect URLs of start_page"
@@ -129,7 +135,6 @@ let startPageLinksToList = JSON.parse(
 let index = postman.getEnvironmentVariable("index");
 let url = postman.getEnvironmentVariable("url");
 let currentLink = startPageLinksToList[Number(index)];
-console.log("currentLink ", currentLink);
 
 postman.setEnvironmentVariable("url", currentLink);
 index = Number(index) + 1;
@@ -140,7 +145,12 @@ console.log("================");
 postman.setEnvironmentVariable("index", index);
 ```
 
-## I'm not sure if it really checks all nested urls. Because when I try to run it my dead old notebook terminates postman. Any ideas and improvements?
+#### Seems to really catch & check all links of a site. This far it has 3 requests as a result of which there is a list of internal links of a website.
+
+[Here](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection/) is the postman project.    
+[Here](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/result%20-%20%205%20first%20links%20-%20worldbirds.ru/) is the json of result - a list of some 90 links created by the first 5 internal links of wordbirds.ru.  
+
+Any ideas and improvements?  
 
 [^1]: Create environment variables:  
 {{base_url}}: the base url of a checked site  
