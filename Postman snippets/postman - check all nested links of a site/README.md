@@ -5,7 +5,7 @@
 ```
 
 ## I'm not sure if it really checks ALL internal links of a site, but looks legit. Maybe it does not collect pagination. 
-To iterate thru all the urls of a site in Postman you must create four requests in a collection. 
+To iterate thru all the urls of a site in Postman you must create four requests in a collection or import the [collection](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection).
 
 I cant collect all links for a site (e.g. I tried `worldbirds.ru`, its main page has 63 links, but my notebook is dead and terminates the full cycle so I only did 5 links).
 
