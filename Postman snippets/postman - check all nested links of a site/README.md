@@ -72,9 +72,6 @@ $('a').each(function (index) {
 
 // update environment variable values
 postman.setEnvironmentVariable("startPageLinks", JSON.stringify(startPageLinks));
-
-// continue calling the same request until all links are checked
-// postman.setNextRequest("Check URL");
 ```
 
 > [!TIP]
