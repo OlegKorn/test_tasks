@@ -176,7 +176,7 @@
 							"    }\r",
 							"});\r",
 							"\r",
-							"if (Number(index) < 5) {\r",
+							"if (Number(index) < startPageLinksToList.length) {\r",
 							"    postman.setNextRequest(\"Collect all nested URLs\");\r",
 							"    //console.log(allLinks);\r",
 							"} \r",
