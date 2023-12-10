@@ -1,4 +1,6 @@
-# POSTMAN INTERNAL LINKS CHECKER
+# POSTMAN INTERNAL LINKS CHECKER 
+### ADD-ON TO THE [ARTICLE](https://blog.postman.com/check-for-broken-links-on-your-website-using-a-postman-collection/)
+
 # HOW IT WORKS  
 ```
 1. IT COLLECTS ALL INTERNAL LINKS FROM THE MAIN PAGE (OR A PAGE YOU SET)  
