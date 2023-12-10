@@ -94,9 +94,6 @@ let currentLink = startPageLinksToList[Number(index)];
 
 postman.setEnvironmentVariable("url", currentLink);
 index = Number(index) + 1;
-// console.log("================");
-// console.log(index, currentLink);
-// console.log("================");
 
 postman.setEnvironmentVariable("index", index);
 ```
@@ -129,19 +126,16 @@ $('a').each(function (index) {
         if (link.startsWith("/") && link.length > 1) {
             link = rootUrl + link;
             if (!allLinks.includes(link)) {
-                // console.log("This link is added: ", link);
                 allLinks.push(link);
             }
         } 
         else if (link.includes("https://") || link.includes("http://")) {
             if (!allLinks.includes(link)) {
-                // console.log("This link is added: ", link);
                 allLinks.push(link);
             } 
         } else {
             return;
         }; 
-        // JSON.stringify(startPageLinks) -> []
         postman.setEnvironmentVariable("allLinks", allLinks);
     } catch (e) {
         console.log(e, link);
