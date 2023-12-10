@@ -69,7 +69,7 @@ $('a').each(function (index) {
     } catch (e) {
         console.log(e, link);
     }
-});
+}); 
 
 // update environment variable values
 postman.setEnvironmentVariable("startPageLinks", JSON.stringify(startPageLinks));
