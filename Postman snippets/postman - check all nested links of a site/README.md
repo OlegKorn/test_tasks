@@ -122,7 +122,7 @@ $('a').each(function (index) {
     }
 });
 
-if (Number(index) < 5) {
+if (Number(index) < startPageLinksToList.length) {
     postman.setNextRequest("Collect all nested URLs");
     //console.log(allLinks);
 } 
