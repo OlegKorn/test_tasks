@@ -8,26 +8,34 @@
 ```
 
 ## I'm not sure if it really checks ALL internal links of a site, but looks legit. Maybe it does not collect pagination. 
-To iterate thru all the urls of a site in Postman you must create four requests in a collection or import the [collection](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection).
+To iterate thru all the urls of a site in Postman you must create 5 requests in a collection or import the [collection](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection).
 
 I cant collect all links for a site (e.g. I tried `worldbirds.ru`, its main page has 63 links, but my notebook is dead and terminates the full cycle so I only did 5 links).
 
-### These 4 requests are:
-
+### These 5 requests are:
+--------------------------  
 > [!TIP]
 > #### Initialize ```GET {{start_url}}```[^1]
 Put this code in the tab "Tests" of this request:    
 ```
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
 postman.setEnvironmentVariable('startPageLinks', '[]');
 postman.setEnvironmentVariable('allLinks', '[]');
 postman.setEnvironmentVariable('index', 0);
 postman.setEnvironmentVariable('url', postman.getEnvironmentVariable('start_url'));
+
 ```
-  
+--------------------------  
 > [!TIP]
 > #### Collect URLs of start_page ```GET {{start_url}}```
 Put this code in the tab "Tests" of this request:    
 ```
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
 // https://blog.postman.com/check-for-broken-links-on-your-website-using-a-postman-collection/
 
 // get environment variables
@@ -72,12 +80,12 @@ $('a').each(function (index) {
     } catch (e) {
         console.log(e, link);
     }
-}); 
+});
 
 // update environment variable values
 postman.setEnvironmentVariable("startPageLinks", JSON.stringify(startPageLinks));
 ```
-  
+--------------------------  
 > [!TIP]
 > #### Collect all nested URLs ```GET {{url}}```
 
@@ -93,16 +101,22 @@ let url = postman.getEnvironmentVariable("url");
 let currentLink = startPageLinksToList[Number(index)];
 
 postman.setEnvironmentVariable("url", currentLink);
-index = Number(index) + 1;
 
+index = Number(index) + 1;
 postman.setEnvironmentVariable("index", index);
 ```
   
 Put this code in the tab "Tests" of this request:  
 ```
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
 let startPageLinksToList = JSON.parse(
     postman.getEnvironmentVariable("startPageLinks").toString().split(",")
 );
+
+let startPageLinksToListNumberToCheck = 5;
 
 let index = postman.getEnvironmentVariable("index");
 
@@ -142,34 +156,48 @@ $('a').each(function (index) {
     }
 });
 
+console.log("Collect all nested URLs:", "index=", index, allLinks);
+
 // if your PC is old and slow
-// set 3 or 5 just to check instead of startPageLinksToList.length
-if (Number(index) < startPageLinksToList.length) {
+// set startPageLinksToListNumberToCheck = 3 or 5 instead of startPageLinksToList.length
+if (Number(index) < startPageLinksToListNumberToCheck) {
     postman.setNextRequest("Collect all nested URLs");
 }
 ```
-  
+--------------------------  
+> [!TIP]
+> #### Set index == 0 ```GET {{url}}```
+Put this code in the tab "Tests" of this request:
+```
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+postman.setEnvironmentVariable("index", 0);
+```
+--------------------------  
 > [!TIP]
 > #### Check collected URLs ```GET {{url}}```
 Put this code in the tab "Pre-request script" of this request:
 ```
 // listify the urls collected from GET "Collect all nested URLs"
 let allLinks = postman.getEnvironmentVariable("allLinks").split(","); // -> []
-
 let index = postman.getEnvironmentVariable("index");
-console.log("index: ", index);
+console.log("Request: 'Check collected URLs';", "index=", index, allLinks);
 
-let currentLink = allLinks[Number(index)];
+let currentLink = allLinks[Number(index)];;
 
 postman.setEnvironmentVariable("url", currentLink);
-index = Number(index) + 1;
+
+if (Number(index) < allLinks.length) {
+    index = Number(index) + 1;
+} 
 
 postman.setEnvironmentVariable("index", index);
 ```
 Put this code in the tab "Tests" of this request:
 ```
 let allLinks = postman.getEnvironmentVariable("allLinks").split(","); // -> []
-
 let index = postman.getEnvironmentVariable("index");
 
 if (Number(index) < allLinks.length) {
