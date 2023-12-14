@@ -15,7 +15,7 @@ I cant collect all links for a site (e.g. I tried `worldbirds.ru`, its main page
 ### These 5 requests are:
 --------------------------  
 > [!TIP]
-> #### Initialize ```GET {{start_url}}```[^1]
+> #### 1. Initialize ```GET {{start_url}}```[^1]
 Put this code in the tab "Tests" of this request:    
 ```
 pm.test("Status code is 200", function () {
@@ -30,7 +30,7 @@ postman.setEnvironmentVariable('url', postman.getEnvironmentVariable('start_url'
 ```
 --------------------------  
 > [!TIP]
-> #### Collect URLs of start_page ```GET {{start_url}}```
+> #### 2. Collect URLs of start_page ```GET {{start_url}}```
 Put this code in the tab "Tests" of this request:    
 ```
 pm.test("Status code is 200", function () {
@@ -87,7 +87,7 @@ postman.setEnvironmentVariable("startPageLinks", JSON.stringify(startPageLinks))
 ```
 --------------------------  
 > [!TIP]
-> #### Collect all nested URLs ```GET {{url}}```
+> #### 3. Collect all nested URLs ```GET {{url}}```
 
 Put this code in the tab "Pre-request script" of this request:  
 ```
@@ -166,7 +166,7 @@ if (Number(index) < startPageLinksToListNumberToCheck) {
 ```
 --------------------------  
 > [!TIP]
-> #### Set index == 0 ```GET {{url}}```
+> #### 4. Set index == 0 ```GET {{url}}```
 Put this code in the tab "Tests" of this request:
 ```
 pm.test("Status code is 200", function () {
@@ -177,7 +177,7 @@ postman.setEnvironmentVariable("index", 0);
 ```
 --------------------------  
 > [!TIP]
-> #### Check collected URLs ```GET {{url}}```
+> #### 5. Check collected URLs ```GET {{url}}```
 Put this code in the tab "Pre-request script" of this request:
 ```
 // listify the urls collected from GET "Collect all nested URLs"
