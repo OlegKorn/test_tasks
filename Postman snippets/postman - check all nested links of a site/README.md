@@ -3,14 +3,25 @@
 
 # HOW IT WORKS  
 ```
-1. IT COLLECTS ALL INTERNAL LINKS FROM THE MAIN PAGE (OR A PAGE YOU SET)  
-2. THEN IT ITERATES THRU EVERY LINK FROM STEP 1 AND IN ITS TURN COLLECTS ALL INTERNAL LINKS FROM EVERY ITERATED LINK AND CREATES A LIST OF ALL LINKS CHECKING IF A LINK IS ALREADY IN THE LIST  
+1. IT COLLECTS ALL (except pagination) INTERNAL LINKS FROM THE MAIN PAGE (OR A PAGE YOU SET)  
+2. THEN IT ITERATES THRU EVERY LINK FROM STEP 1 AND IN ITS TURN COLLECTS ALL (except pagination) INTERNAL LINKS FROM EVERY ITERATED LINK AND CREATES A LIST OF ALL LINKS, CHECKING IF A LINK IS ALREADY IN THE LIST  
 ```
 
-## I'm not sure if it really checks ALL internal links of a site, but looks legit. Maybe it does not collect pagination. 
-To iterate thru all the urls of a site in Postman you must create 5 requests in a collection or import the [collection](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection).
-
-I cant collect all links for a site (e.g. I tried `worldbirds.ru`, its main page has 63 links, but my notebook is dead and terminates the full cycle so I only did 5 links).
+Example: for https://tropics-seeds.ru it checked 236 internal links, 12 of them were 404:
+```
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/banany
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/vodnye-rastenia
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/dekorativno-listvennye
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/kaudeksnye
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/krasivo-cvetuschie
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/ostrye-percy
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/passiflory
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/passiflory
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/plodovye
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/nasekomoyadnye
+https://tropics-seeds.ru/shop/ehkzoticheskie-rastenija/hvoinye
+```
 
 ### These 5 requests are:
 --------------------------  
@@ -18,30 +29,39 @@ I cant collect all links for a site (e.g. I tried `worldbirds.ru`, its main page
 > #### 1. Initialize ```GET {{start_url}}```[^1]
 Put this code in the tab "Tests" of this request:    
 ```
-pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
+// https://blog.postman.com/check-for-broken-links-on-your-website-using-a-postman-collection/
 
 postman.setEnvironmentVariable('startPageLinks', '[]');
 postman.setEnvironmentVariable('allLinks', '[]');
 postman.setEnvironmentVariable('index', 0);
 postman.setEnvironmentVariable('url', postman.getEnvironmentVariable('start_url'));
-
 ```
 --------------------------  
 > [!TIP]
 > #### 2. Collect URLs of start_page ```GET {{start_url}}```
 Put this code in the tab "Tests" of this request:    
 ```
-pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
-// https://blog.postman.com/check-for-broken-links-on-your-website-using-a-postman-collection/
+// https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/
+function isValidHttpUrl(str) {
+  const pattern = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', // fragment locator
+    'i'
+  );
+  return pattern.test(str);
+}
+
 
 // get environment variables
 var start_url = postman.getEnvironmentVariable('start_url');
 var root_url = postman.getEnvironmentVariable('root_url');
-var startPageLinks = JSON.parse(postman.getEnvironmentVariable('startPageLinks')) // [];
+
+var startPageLinks = JSON.parse(postman.getEnvironmentVariable('startPageLinks')); // [];
+var allLinks = JSON.parse(postman.getEnvironmentVariable('allLinks')); // []
 
 // load the response body as HTML using cheerio, get the <a> tags
 var $ = cheerio.load(responseBody);
@@ -53,6 +73,7 @@ $('a').each(function (index) {
 
         if (link !== "undefined" && 
             !link.includes("tel:") && 
+            link.length !== 0 &&
             link !== "" &&
             link !== "/")
         {
@@ -66,6 +87,7 @@ $('a').each(function (index) {
         if (link !== root_url &&          // let's try to exclude the root_url
             !startPageLinks.includes(link) && 
             !link.includes("skype") && 
+            !link.includes("javascript:") &&
             !link.startsWith("#") &&
             !link.includes("tel:") &&
             link !== "#" &&
@@ -75,8 +97,10 @@ $('a').each(function (index) {
             !link.includes("twitter") &&
             !link.includes("linkedin")) 
         {
+            console.log(link);
             startPageLinks.push(link);
-        }  
+            allLinks.push(link);
+        }
     } catch (e) {
         console.log(e, link);
     }
@@ -108,15 +132,25 @@ postman.setEnvironmentVariable("index", index);
   
 Put this code in the tab "Tests" of this request:  
 ```
-pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
+// https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/
+function isValidHttpUrl(str) {
+  const pattern = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', // fragment locator
+    'i'
+  );
+  return pattern.test(str);
+}
 
 let startPageLinksToList = JSON.parse(
     postman.getEnvironmentVariable("startPageLinks").toString().split(",")
 );
 
-let startPageLinksToListNumberToCheck = 5;
+// let startPageLinksToListNumberToCheck = 5;
 
 let index = postman.getEnvironmentVariable("index");
 
@@ -128,23 +162,26 @@ if (Number(index) > 1) {
 }
 
 let rootUrl = postman.getEnvironmentVariable("root_url"); 
+let rootUrlWithoutSchema = postman.getEnvironmentVariable("rootUrlWithoutSchema");
 
 // load the response body as HTML using cheerio, get the <a> tags
 var $ = cheerio.load(responseBody);
-    
+
 $('a').each(function (index) {
     try { 
         var link = $(this).attr('href'); 
-
         // if a link is relative
+        if (link.startsWith("//") && link.includes(rootUrlWithoutSchema)) {
+            link = link.replace("//", "").replace(rootUrlWithoutSchema, "");
+        }
         if (link.startsWith("/") && link.length > 1) {
             link = rootUrl + link;
-            if (!allLinks.includes(link)) {
+            if (isValidHttpUrl(link) && !allLinks.includes(link)) {
                 allLinks.push(link);
             }
         } 
         else if (link.includes("https://") || link.includes("http://")) {
-            if (!allLinks.includes(link)) {
+            if (isValidHttpUrl(link) && !allLinks.includes(link)) {
                 allLinks.push(link);
             } 
         } else {
@@ -160,7 +197,7 @@ console.log("Collect all nested URLs:", "index=", index, allLinks);
 
 // if your PC is old and slow
 // set startPageLinksToListNumberToCheck = 3 or 5 instead of startPageLinksToList.length
-if (Number(index) < startPageLinksToListNumberToCheck) {
+if (Number(index) < startPageLinksToList.length) {
     postman.setNextRequest("Collect all nested URLs");
 }
 ```
@@ -169,10 +206,6 @@ if (Number(index) < startPageLinksToListNumberToCheck) {
 > #### 4. Set index == 0 ```GET {{url}}```
 Put this code in the tab "Tests" of this request:
 ```
-pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
-
 postman.setEnvironmentVariable("index", 0);
 ```
 --------------------------  
@@ -211,12 +244,13 @@ if (Number(index) < allLinks.length) {
 
 #### Seems to really catch & check all links of a site. This far it has 3 requests as a result of which there is a list of internal links of a website.
 
-[Here](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection) is the postman project.    
-[Here](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/result%20-%20%205%20first%20links%20-%20worldbirds.ru/) is the json of result - a list of some 90 links created by the first 5 internal links of wordbirds.ru.  
+[Here](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/postman%20-%20check%20all%20nested%20links%20of%20a%20site/Check%20all%20nested%20links%20of%20a%20site.postman_collection) is the postman project.  
+[Here](https://github.com/OlegKorn/test_tasks/blob/main/Postman%20snippets/23%20-%20check%20all%20nested%20links%20of%20a%20site/tropics-seeds.ru%20-%20236%20internal%20links)  is the json of result - a list of 236 internal links created of tropics-seeds.ru (w/o full pagination).
 
 Any ideas and improvements?  
 
 [^1]: Create environment variables:  
 {{base_url}}: the base url of a checked site  
 {{start_url}}: an url of a site to check
+{{rootUrlWithoutSchema}}: root_url w/o schema
 
